@@ -1,0 +1,111 @@
+---
+title: "Proposal"
+author: "NguyenTriDung_NguyenKhoaQuangThang_LeMinhDang"
+date: "2022-10-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+Danh sách thành viên:
+
+```{r}
+
+```
+
+# Phần 1: Giới thiệu:
+
+Điện thoại - Vật dụng không thể thiếu trong cuộc sống hiện nay khi mà toàn cầu đang tiến tới công nghệ hóa mọi thứ trong cuộc sống. Với những chức năng đa dạng và ngày càng hiện đại (như soạn văn bản Word, xem phim với độ phân giải cao,...), cộng thêm những chiếc điện thoại ngày nay có khả năng được những thiết bị khác (như máy ảnh, máy nhắn tin, máy ghi âm,...) thì việc càng nhiều người chọn điện thoại là vật bất ly thân là không thể chối cãi.
+
+Nhận thấy điều đó, nhóm 2 nhận thức được rằng việc người mua hàng lựa chọn cấu hình và giá cả khi mua điện thoại luôn được người tiêu dùng đặt lên hàng đầu. Do vậy, để hiểu rõ hơn về sự ảnh hưởng của những chức năng, cấu hình điện thoại tới giá cả, nhóm 2 chọn đề tài là: "Phân tích mô hình dự đoán giá điện thoại qua cấu hình máy".
+
+Và trong đề tài này, dataset được nhóm 2 thống nhất sử dụng có tên là **Mobile Phone Specifications and Prices** được tải xuống từ Kaggle và tác giả của dataset là **PRATIK** **GARAI.** Theo tác giả, dataset được lấy từ website Gadgets360, được scrapped và cleaned bằng cách dùng [code ở đây](https://github.com/PratikGarai/Web-Scrapers/blob/master/BeautifulSoup/Ndtv_Scraper.py) và preprocessed [ở đây](https://github.com/PratikGarai/Mobile-Phone-Dataset-Analysis/blob/master/Additional/ndtv_analysis.ipynb)
+
+# Phần 2: Dữ liệu:
+
+Kích thước của tập dữ liệu:
+
+Các biến của tập dữ liệu
+
+10 dòng đầu của tập dữ liệu:
+
+```{r}
+
+```
+
+10 dòng cuối của tập dữ liệu:
+
+```{r}
+
+```
+
+# Phần 3: Kế hoạch phân tích dữ liệu:
+
+### 1. Các biến kết quả (phản hồi, Y) và dự đoán (giải thích, X):
+
+#### **Biến dự đoán(giải thích):**
+
+-   Name
+
+-   Brand
+
+-   Model
+
+-   Battery capacity (mAh)
+
+-   Screen size (inches)
+
+-   Touchscreen
+
+-   Resolution x
+
+-   Resolution y
+
+-   Processor
+
+-   RAM (MB)
+
+-   Internal storage (GB)
+
+-   Rear camera
+
+-   Front camera
+
+-   Operating system
+
+-   Wi-Fi
+
+-   Bluetooth
+
+-   GPS
+
+-   Number of SIMs
+
+-   3G,4G/ LTE
+
+#### **Biến kết quả (phản hồi):**
+
+-   Price
+
+### 2) Phân tích dữ liệu sơ bộ:
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+### **3) Các phương pháp mà nhóm tin rằng sẽ giúp trả lời cho câu hỏi đặt ra:**
+
+### **4) Kế hoạch thực hiện và phân công công việc:**
+
+
