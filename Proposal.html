@@ -9,10 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="NguyenTriDung_NguyenKhoaQuangThang_LeMinhDang" />
 
-<meta name="date" content="2022-10-25" />
+<meta name="date" content="2022-10-29" />
 
-<title>Project.knit</title>
+<title>Proposal</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -349,139 +350,89 @@ display: none;
 
 
 
+<h1 class="title toc-ignore">Proposal</h1>
+<h4 class="author">NguyenTriDung_NguyenKhoaQuangThang_LeMinhDang</h4>
+<h4 class="date">2022-10-29</h4>
 
 </div>
 
 
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
-## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
-## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-## ✔ readr   2.1.3      ✔ forcats 0.5.2 
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>data&lt;-read.csv(&quot;./data.csv&quot;)
-price&lt;-as.vector(data[&#39;Price&#39;])</code></pre>
-<pre class="r"><code>glimpse(data)</code></pre>
-<pre><code>## Rows: 1,359
-## Columns: 22
-## $ X                      &lt;int&gt; 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1…
-## $ Name                   &lt;chr&gt; &quot;OnePlus 7T Pro McLaren Edition&quot;, &quot;Realme X2 Pr…
-## $ Brand                  &lt;chr&gt; &quot;OnePlus&quot;, &quot;Realme&quot;, &quot;Apple&quot;, &quot;Apple&quot;, &quot;LG&quot;, &quot;O…
-## $ Model                  &lt;chr&gt; &quot;7T Pro McLaren Edition&quot;, &quot;X2 Pro&quot;, &quot;iPhone 11 …
-## $ Battery.capacity..mAh. &lt;int&gt; 4085, 4000, 3969, 3110, 4000, 3800, 4085, 4300,…
-## $ Screen.size..inches.   &lt;dbl&gt; 6.67, 6.50, 6.50, 6.10, 6.40, 6.55, 6.67, 6.80,…
-## $ Touchscreen            &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;…
-## $ Resolution.x           &lt;int&gt; 1440, 1080, 1242, 828, 1080, 1080, 1440, 1440, …
-## $ Resolution.y           &lt;int&gt; 3120, 2400, 2688, 1792, 2340, 2400, 3120, 3040,…
-## $ Processor              &lt;int&gt; 8, 8, 6, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,…
-## $ RAM..MB.               &lt;int&gt; 12000, 6000, 4000, 4000, 6000, 8000, 8000, 1200…
-## $ Internal.storage..GB.  &lt;dbl&gt; 256, 64, 64, 64, 128, 128, 256, 256, 128, 128, …
-## $ Rear.camera            &lt;dbl&gt; 48.0, 64.0, 12.0, 12.0, 12.0, 48.0, 48.0, 12.0,…
-## $ Front.camera           &lt;dbl&gt; 16, 16, 12, 12, 32, 16, 16, 10, 24, 20, 16, 16,…
-## $ Operating.system       &lt;chr&gt; &quot;Android&quot;, &quot;Android&quot;, &quot;iOS&quot;, &quot;iOS&quot;, &quot;Android&quot;, …
-## $ Wi.Fi                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;…
-## $ Bluetooth              &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;…
-## $ GPS                    &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;,…
-## $ Number.of.SIMs         &lt;int&gt; 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2,…
-## $ X3G                    &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;,…
-## $ X4G..LTE               &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;,…
-## $ Price                  &lt;int&gt; 58998, 27999, 106900, 62900, 49990, 34930, 5299…</code></pre>
-<pre class="r"><code>price&lt;-data[[&#39;Price&#39;]]</code></pre>
-<pre class="r"><code>colnames(data)[5]&lt;-&#39;Battery&#39;
-colnames(data)[6]&lt;-&#39;Screensize&#39;
-colnames(data)[10]&lt;-&#39;NumOfProcessor&#39;
-colnames(data)[11]&lt;-&#39;Ram&#39;
-colnames(data)[12]&lt;-&#39;InternalStorage&#39;
-colnames(data)[13]&lt;-&#39;RearCamera&#39;
-colnames(data)[14]&lt;-&#39;FrontCamera&#39;
-colnames(data)[15]&lt;-&#39;OS&#39;
-colnames(data)[16]&lt;-&#39;Wifi&#39;
-colnames(data)[19]&lt;-&#39;NumOfSims&#39;
-colnames(data)[20]&lt;-&#39;3G&#39;
-colnames(data)[21]&lt;-&#39;4G&#39;
-
-colnames(data)</code></pre>
-<pre><code>##  [1] &quot;X&quot;               &quot;Name&quot;            &quot;Brand&quot;           &quot;Model&quot;          
-##  [5] &quot;Battery&quot;         &quot;Screensize&quot;      &quot;Touchscreen&quot;     &quot;Resolution.x&quot;   
-##  [9] &quot;Resolution.y&quot;    &quot;NumOfProcessor&quot;  &quot;Ram&quot;             &quot;InternalStorage&quot;
-## [13] &quot;RearCamera&quot;      &quot;FrontCamera&quot;     &quot;OS&quot;              &quot;Wifi&quot;           
-## [17] &quot;Bluetooth&quot;       &quot;GPS&quot;             &quot;NumOfSims&quot;       &quot;3G&quot;             
-## [21] &quot;4G&quot;              &quot;Price&quot;</code></pre>
-<pre class="r"><code>brand&lt;-data[[&#39;Brand&#39;]]</code></pre>
-<pre class="r"><code>battery&lt;-data[[&#39;Battery&#39;]]
-result&lt;-cor.test(price,battery,method = &#39;pearson&#39;)
-print(result)</code></pre>
-<pre><code>## 
-##  Pearson&#39;s product-moment correlation
-## 
-## data:  price and battery
-## t = 11.48, df = 1357, p-value &lt; 2.2e-16
-## alternative hypothesis: true correlation is not equal to 0
-## 95 percent confidence interval:
-##  0.2482781 0.3452383
-## sample estimates:
-##       cor 
-## 0.2975252</code></pre>
-<p>2.2e-16 = 0.00000000000000022</p>
-<pre class="r"><code>screensize&lt;-data[[&#39;Screensize&#39;]]
-result&lt;-cor.test(price,screensize,method = &#39;pearson&#39;)
-print(result)</code></pre>
-<pre><code>## 
-##  Pearson&#39;s product-moment correlation
-## 
-## data:  price and screensize
-## t = 16.195, df = 1357, p-value &lt; 2.2e-16
-## alternative hypothesis: true correlation is not equal to 0
-## 95 percent confidence interval:
-##  0.3569259 0.4460908
-## sample estimates:
-##       cor 
-## 0.4024624</code></pre>
-<pre class="r"><code>res_x&lt;-data[[&#39;Resolution.x&#39;]]
-result&lt;-cor.test(price,res_x,method = &#39;pearson&#39;)
-print(result)</code></pre>
-<pre><code>## 
-##  Pearson&#39;s product-moment correlation
-## 
-## data:  price and res_x
-## t = 23.678, df = 1357, p-value &lt; 2.2e-16
-## alternative hypothesis: true correlation is not equal to 0
-## 95 percent confidence interval:
-##  0.5019688 0.5772878
-## sample estimates:
-##       cor 
-## 0.5407111</code></pre>
-<pre class="r"><code>res_y&lt;-data[[&#39;Resolution.y&#39;]]
-result&lt;-cor.test(price,res_y,method = &#39;pearson&#39;)
-print(result)</code></pre>
-<pre><code>## 
-##  Pearson&#39;s product-moment correlation
-## 
-## data:  price and res_y
-## t = 25.967, df = 1357, p-value &lt; 2.2e-16
-## alternative hypothesis: true correlation is not equal to 0
-## 95 percent confidence interval:
-##  0.5395059 0.6106198
-## sample estimates:
-##       cor 
-## 0.5761522</code></pre>
-<pre class="r"><code>numOfProcessor&lt;-data[[&#39;NumOfProcessor&#39;]]
-result&lt;-cor.test(price,numOfProcessor,method = &#39;pearson&#39;)
-print(result)</code></pre>
-<pre><code>## 
-##  Pearson&#39;s product-moment correlation
-## 
-## data:  price and numOfProcessor
-## t = 11.691, df = 1357, p-value &lt; 2.2e-16
-## alternative hypothesis: true correlation is not equal to 0
-## 95 percent confidence interval:
-##  0.2533925 0.3500366
-## sample estimates:
-##       cor 
-## 0.3024918</code></pre>
+<p>Danh sách thành viên:</p>
+<div id="phần-1-giới-thiệu" class="section level1">
+<h1>Phần 1: Giới thiệu:</h1>
+<p>Điện thoại - Vật dụng không thể thiếu trong cuộc sống hiện nay khi mà
+toàn cầu đang tiến tới công nghệ hóa mọi thứ trong cuộc sống. Với những
+chức năng đa dạng và ngày càng hiện đại (như soạn văn bản Word, xem phim
+với độ phân giải cao,…), cộng thêm những chiếc điện thoại ngày nay có
+khả năng được những thiết bị khác (như máy ảnh, máy nhắn tin, máy ghi
+âm,…) thì việc càng nhiều người chọn điện thoại là vật bất ly thân là
+không thể chối cãi.</p>
+<p>Nhận thấy điều đó, nhóm 2 nhận thức được rằng việc người mua hàng lựa
+chọn cấu hình và giá cả khi mua điện thoại luôn được người tiêu dùng đặt
+lên hàng đầu. Do vậy, để hiểu rõ hơn về sự ảnh hưởng của những chức
+năng, cấu hình điện thoại tới giá cả, nhóm 2 chọn đề tài là: “Phân tích
+mô hình dự đoán giá điện thoại qua cấu hình máy”.</p>
+<p>Và trong đề tài này, dataset được nhóm 2 thống nhất sử dụng có tên là
+<strong>Mobile Phone Specifications and Prices</strong> được tải xuống
+từ Kaggle và tác giả của dataset là <strong>PRATIK</strong>
+<strong>GARAI.</strong> Theo tác giả, dataset được lấy từ website
+Gadgets360, được scrapped và cleaned bằng cách dùng <a href="https://github.com/PratikGarai/Web-Scrapers/blob/master/BeautifulSoup/Ndtv_Scraper.py">code
+ở đây</a> và preprocessed <a href="https://github.com/PratikGarai/Mobile-Phone-Dataset-Analysis/blob/master/Additional/ndtv_analysis.ipynb">ở
+đây</a></p>
+</div>
+<div id="phần-2-dữ-liệu" class="section level1">
+<h1>Phần 2: Dữ liệu:</h1>
+<p>Kích thước của tập dữ liệu:</p>
+<p>Các biến của tập dữ liệu</p>
+<p>10 dòng đầu của tập dữ liệu:</p>
+<p>10 dòng cuối của tập dữ liệu:</p>
+</div>
+<div id="phần-3-kế-hoạch-phân-tích-dữ-liệu" class="section level1">
+<h1>Phần 3: Kế hoạch phân tích dữ liệu:</h1>
+<div id="các-biến-kết-quả-phản-hồi-y-và-dự-đoán-giải-thích-x" class="section level3">
+<h3>1. Các biến kết quả (phản hồi, Y) và dự đoán (giải thích, X):</h3>
+<div id="biến-dự-đoángiải-thích" class="section level4">
+<h4><strong>Biến dự đoán(giải thích):</strong></h4>
+<ul>
+<li><p>Name</p></li>
+<li><p>Brand</p></li>
+<li><p>Model</p></li>
+<li><p>Battery capacity (mAh)</p></li>
+<li><p>Screen size (inches)</p></li>
+<li><p>Touchscreen</p></li>
+<li><p>Resolution x</p></li>
+<li><p>Resolution y</p></li>
+<li><p>Processor</p></li>
+<li><p>RAM (MB)</p></li>
+<li><p>Internal storage (GB)</p></li>
+<li><p>Rear camera</p></li>
+<li><p>Front camera</p></li>
+<li><p>Operating system</p></li>
+<li><p>Wi-Fi</p></li>
+<li><p>Bluetooth</p></li>
+<li><p>GPS</p></li>
+<li><p>Number of SIMs</p></li>
+<li><p>3G,4G/ LTE</p></li>
+</ul>
+</div>
+<div id="biến-kết-quả-phản-hồi" class="section level4">
+<h4><strong>Biến kết quả (phản hồi):</strong></h4>
+<ul>
+<li>Price</li>
+</ul>
+</div>
+</div>
+<div id="phân-tích-dữ-liệu-sơ-bộ" class="section level3">
+<h3>2) Phân tích dữ liệu sơ bộ:</h3>
+</div>
+<div id="các-phương-pháp-mà-nhóm-tin-rằng-sẽ-giúp-trả-lời-cho-câu-hỏi-đặt-ra" class="section level3">
+<h3><strong>3) Các phương pháp mà nhóm tin rằng sẽ giúp trả lời cho câu
+hỏi đặt ra:</strong></h3>
+</div>
+<div id="kế-hoạch-thực-hiện-và-phân-công-công-việc" class="section level3">
+<h3><strong>4) Kế hoạch thực hiện và phân công công việc:</strong></h3>
+</div>
+</div>
 
 
 
