@@ -63,27 +63,151 @@ tail(data,10)
 
 #### **Biến dự đoán(giải thích):**
 
--   Name
+-   1.Name
 
--   Brand
+-   2.Brand
+```{r}
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Brand, fill = Brand), width = 0.5)+
+  labs( 
+    x = "Hãng Điện Thoại",
+    y = "Số Lương")
+```
 
--   Model
 
--   Battery capacity (mAh)
+-   3.Model
 
--   Screen size (inches)
+-   4.Battery capacity (mAh)
+```{r}
+ggplot(data = data, mapping = aes(x = X, y = Battery.capacity..mAh.)) +
+  geom_point() +
+  labs( 
+    x = "",
+    y = "Dung Lượng PIN(mAh)")
+```
 
--   Touchscreen
 
--   Resolution x
+-   5.Screen size (inches)
+```{r}
+ggplot(data = data, mapping = aes(x = X, y = Screen.size..inches.)) +
+  geom_point() +
+  labs( 
+    x = "",
+    y = "Kích Cỡ Màng Hình(inches)")
+```
 
--   Resolution y
 
--   Processor
+-   6.Touchscreen
+```{r}
+data %>% 
+  select(Touchscreen) %>% 
+  group_by(Touchscreen) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=Touchscreen)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) + 
+  theme_void()
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Touchscreen), width = 1, color = "blue") +
+  labs( 
+    x = "Resolution X",
+    y = "Số Lương")
+```
 
--   RAM (MB)
 
--   Internal storage (GB)
+-   7.Resolution x
+```{r}
+data %>% 
+  select(Resolution.x) %>% 
+  group_by(Resolution.x) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=Resolution.x)) +
+  geom_bar(stat="identity", width=1, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Resolution.x), width = 100, color = "blue") +
+  labs( 
+    x = "Resolution X",
+    y = "Số Lương")
+```
+
+
+-   8.Resolution y
+```{r}
+data %>% 
+  select(Resolution.y) %>% 
+  group_by(Resolution.y) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=Resolution.y)) +
+  geom_bar(stat="identity", width=1, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Resolution.y), width = 100, color = "blue") +
+  labs( 
+    x = "Resolution Y",
+    y = "Số Lương")
+```
+
+
+-   9.Processor
+```{r}
+data %>% 
+  select(Processor) %>% 
+  group_by(Processor) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=Processor)) +
+  geom_bar(stat="identity", width=1, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Processor), width = 0.5, color = "blue") +
+  labs( 
+    x = "Processor",
+    y = "Số Lương")
+```
+
+
+-   10.RAM (MB)
+```{r}
+data %>% 
+  select(RAM..MB.) %>% 
+  group_by(RAM..MB.) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=RAM..MB.)) +
+  geom_bar(stat="identity", width=1000, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = RAM..MB.), width = 1000, color = "blue") +
+  labs( 
+    x = "RAM",
+    y = "Số Lương")
+```
+
+-   11.Internal storage (GB)
+```{r}
+data %>% 
+  select(Internal.storage..GB.) %>% 
+  group_by(Internal.storage..GB.) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=Internal.storage..GB.)) +
+  geom_bar(stat="identity", width=64, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Internal.storage..GB.), width = 16, color = "blue") +
+  labs( 
+    x = "Internal storage(GB)",
+    y = "Số Lương")
+```
+
 
 -   Rear camera
 
