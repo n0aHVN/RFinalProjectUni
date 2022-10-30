@@ -8,12 +8,19 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(knitr)
 ```
 
 Danh sách thành viên:
 
-```{r}
+```{r,echo=FALSE}
+DSThanhVien <-data.frame("STT" = c(9,10,30),
+                         "Name" = c("Nguyễn Trí Dũng","Lê Minh Đăng","Nguyễn Khoa Quang Thắng"),
+                         "MSSV"=c("20133029","20133034","20133090"),
+                         stringsAsFactors = FALSE
+)
 
+kable(DSThanhVien)
 ```
 
 # Phần 1: Giới thiệu:
@@ -24,22 +31,30 @@ Nhận thấy điều đó, nhóm 2 nhận thức được rằng việc ngườ
 
 Và trong đề tài này, dataset được nhóm 2 thống nhất sử dụng có tên là **Mobile Phone Specifications and Prices** được tải xuống từ Kaggle và tác giả của dataset là **PRATIK** **GARAI.** Theo tác giả, dataset được lấy từ website Gadgets360, được scrapped và cleaned bằng cách dùng [code ở đây](https://github.com/PratikGarai/Web-Scrapers/blob/master/BeautifulSoup/Ndtv_Scraper.py) và preprocessed [ở đây](https://github.com/PratikGarai/Mobile-Phone-Dataset-Analysis/blob/master/Additional/ndtv_analysis.ipynb)
 
+Câu hỏi của nhóm đặt ra là:
+
 # Phần 2: Dữ liệu:
 
-Kích thước của tập dữ liệu:
+```{r}
+data<-read.csv("./data.csv")
+```
 
-Các biến của tập dữ liệu
+```{r,echo=FALSE}
+glimpse(data)
+```
+
+Với hàm glimpse(), ta biết rằng kích thước của tập dữ liệu là **1359 x 22.**
 
 10 dòng đầu của tập dữ liệu:
 
 ```{r}
-
+head(data,10)
 ```
 
 10 dòng cuối của tập dữ liệu:
 
 ```{r}
-
+tail(data,10)
 ```
 
 # Phần 3: Kế hoạch phân tích dữ liệu:
@@ -106,6 +121,6 @@ Các biến của tập dữ liệu
 
 ### **3) Các phương pháp mà nhóm tin rằng sẽ giúp trả lời cho câu hỏi đặt ra:**
 
+Xây dựng mô hình dự đoán biến kết quả là giá của điện thoại dựa trên các biến dự đoán.
+
 ### **4) Kế hoạch thực hiện và phân công công việc:**
-
-
