@@ -261,7 +261,15 @@ ggplot(data = data) +
 ```
 
 ```{r}
-
+ggplot(data = data, mapping = aes(x = Rear.camera, y = Front.camera)) +
+  geom_point(mapping = aes(color = Operating.system), size = 1.5) +
+  xlim(0,70) + ylim(0,35) +
+  xlab('Rear Camera (mp)') +
+  ylab('Front Camera (mp)') +
+  ggtitle(label = 'Scatterplots') + 
+  scale_color_brewer(palette = "Set1") +
+  theme_light() +
+  scale_color_discrete(name = "OS")
 ```
 
 ```{r}
