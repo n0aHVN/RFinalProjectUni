@@ -265,11 +265,50 @@ ggplot(data = data) +
 ```
 
 ```{r}
+data1 <- data
+data1$Internal.storage..GB.<- as.character(data1$Internal.storage..GB.)
 
+
+ggplot() +
+  geom_bar(data = data1,mapping = aes(x = Internal.storage..GB., fill =                    Internal.storage..GB.)) +
+  coord_polar() +
+  xlab('Internal Storage (GB)') +
+  ylab('Range') +
+  ggtitle(label = 'Statistic of Internal Storage') +
+
+  scale_fill_discrete(name = "Category IS")
 ```
 
 ```{r}
+data2 <- data.frame(
+  group = c("Yes","No"),
+  value = c((sum(data$Wi.Fi == "Yes")-sum(data$Wi.Fi == "No"))/sum(data$Wi.Fi == "Yes")*100,sum(data$Wi.Fi == "No")/sum(data$Wi.Fi == "Yes")*100)
+)
 
+ggplot(data = data2, aes(x = "", y = value, fill = group)) +
+  geom_col(color = "white") +
+  geom_text(aes(label = (round(value, digits = 2))),
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  ggtitle(label = 'Wifi Statistic') +
+  scale_fill_discrete(name = "Category")
+```
+
+```{r}
+data3 <- data.frame(
+  group = c("Yes","No"),
+  value = c((sum(data$X4G..LTE == "Yes")-sum(data$X4G..LTE == "No"))/sum(data$X4G..LTE == "Yes")*100,sum(data$X4G..LTE == "No")/sum(data$X4G..LTE == "Yes")*100)
+)
+
+ggplot(data = data3, aes(x = "", y = value, fill = group)) +
+  geom_col(color = "white") +
+  geom_text(aes(label = (round(value, digits = 2))),
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  labs(title = '4G/LITE Statistic', caption = "Many device don't support 4G/LITE") +
+  scale_fill_discrete(name = "Category")
 ```
 
 ### **3) Các phương pháp mà nhóm tin rằng sẽ giúp trả lời cho câu hỏi đặt ra:**
