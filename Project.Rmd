@@ -8,22 +8,49 @@ date: "2022-10-25"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{=html}
+<h1 style="text-align:center">
+<b>Project nhóm 2</b>
+</h1>
+```
+```{r,include=FALSE}
 library(tidyverse)
+library(knitr)
 ```
 
+# **Danh sách thành viên:**
+
+```{r,echo=FALSE}
+DSThanhVien <-data.frame("STT" = c(9,10,30),
+                         "Name" = c("Nguyễn Trí Dũng","Lê Minh Đăng","Nguyễn Khoa Quang Thắng"),
+                         "MSSV"=c("20133029","20133034","20133090"),
+                         stringsAsFactors = FALSE
+)
+
+kable(DSThanhVien)
+```
+
+# Phần 1: Giới thiệu:
+
+Điện thoại - Vật dụng không thể thiếu trong cuộc sống hiện nay khi mà toàn cầu đang tiến tới công nghệ hóa mọi thứ trong cuộc sống. Với những chức năng đa dạng và ngày càng hiện đại (như soạn văn bản Word, xem phim với độ phân giải cao,...), cộng thêm những chiếc điện thoại ngày nay có khả năng được những thiết bị khác (như máy ảnh, máy nhắn tin, máy ghi âm,...) thì việc càng nhiều người chọn điện thoại là vật bất ly thân là không thể chối cãi.
+
+Nhận thấy điều đó, nhóm 2 nhận thức được rằng việc người mua hàng lựa chọn cấu hình và giá cả khi mua điện thoại luôn được người tiêu dùng đặt lên hàng đầu. Do vậy, để hiểu rõ hơn về sự ảnh hưởng của những chức năng, cấu hình điện thoại tới giá cả, nhóm 2 chọn đề tài là: "Phân tích mô hình dự đoán giá điện thoại qua cấu hình máy".
+
+Và trong đề tài này, dataset được nhóm 2 thống nhất sử dụng có tên là **Mobile Phone Specifications and Prices** được tải xuống từ Kaggle và tác giả của dataset là **PRATIK** **GARAI.** Theo tác giả, dataset được lấy từ website Gadgets360 - là một trang báo của Ấn Độ được cập nhật các thông tin trên toàn thế giới, dữ liệu từ trang này được scrapped và cleaned bằng cách dùng [code ở đây](https://github.com/PratikGarai/Web-Scrapers/blob/master/BeautifulSoup/Ndtv_Scraper.py) và preprocessed [ở đây](https://github.com/PratikGarai/Mobile-Phone-Dataset-Analysis/blob/master/Additional/ndtv_analysis.ipynb)
+
+![](https://c.ndtvimg.com/gws/739/assets/4.svg?1597035633){width="515"}
+
+```{=html}
+<h1 style="font-size: 20px">
+<h1>
+```
 ```{r}
 data<-read.csv("./data.csv")
-price<-as.vector(data['Price'])
 ```
 
 ```{r}
 glimpse(data)
 price<-data[['Price']]
-```
-
-```{r}
-
 ```
 
 ```{r}
@@ -44,9 +71,38 @@ colnames(data)
 ```
 
 ```{r}
-brand<-data[['Brand']]
+any(is.na(data[1:1359,]))
 
 ```
+
+# Phần 2: Mô hình hoá dữ liệu
+
+# Phần 3: Kiểm định giả thuyết
+
+# **Brand**
+
+```{r}
+new_data<-data
+new_data<-new_data[order(new_data$Brand),]
+new_brand = as.factor(new_data$Brand)
+new_price = new_data$Price
+new_brand<-as.numeric(new_brand)
+summary(aov(new_price~new_brand))
+```
+
+# Model
+
+```{r}
+new_data<-data
+new_data<-new_data[order(new_data$Model),]
+new_model <- as.factor(new_data$Model)
+new_price = new_data$Price
+new_model<-as.numeric(new_model)
+anova_model<-aov(new_model~new_price)
+summary(anova_model)
+```
+
+# Battery Capacity
 
 ```{r}
 battery<-data[['Battery']]
@@ -56,12 +112,28 @@ print(result)
 
 2.2e-16 = 0.00000000000000022
 
+# Screensize
+
 ```{r}
 screensize<-data[['Screensize']]
 result<-cor.test(price,screensize,method = 'pearson')
 print(result)
 
 ```
+
+# Touchscreen
+
+```{r}
+new_data<-data
+new_data[new_data$Touchscreen == "Yes",]['Touchscreen']<-as.integer(1)
+new_data[new_data$Touchscreen == "No",]['Touchscreen']<-as.integer(0)
+new_data$Touchscreen<-as.numeric(new_data$Touchscreen)
+cor.test(new_data$Price,new_data$Touchscreen)
+```
+
+Ko có mối tương quan
+
+# Resolution.x
 
 ```{r}
 res_x<-data[['Resolution.x']]
@@ -70,14 +142,149 @@ print(result)
 
 ```
 
+# Resolution.y
+
 ```{r}
 res_y<-data[['Resolution.y']]
 result<-cor.test(price,res_y,method = 'pearson')
 print(result)
 ```
 
+# NumOfPrecessor
+
 ```{r}
 numOfProcessor<-data[['NumOfProcessor']]
 result<-cor.test(price,numOfProcessor,method = 'pearson')
 print(result)
+```
+
+# RAM
+
+```{r}
+ram<-data[['Ram']]
+result<-cor.test(price,ram,method = 'pearson')
+print(result)
+```
+
+# Internal storage
+
+```{r}
+cor.test(data$InternalStorage,data$Price,method = 'pearson')
+
+```
+
+# Rear Camera
+
+```{r}
+cor.test(data$RearCamera,data$Price,method = 'pearson')
+```
+
+# Front camera
+
+```{r}
+cor.test(data$FrontCamera,data$Price,method = 'pearson')
+```
+
+# Operating System
+
+```{r}
+new_data<-data
+new_data<-new_data[order(new_data$OS),]
+new_OS = as.numeric(as.factor(new_data$OS))
+new_price = new_data$Price
+summary(aov(new_OS~new_price))
+```
+
+Wifi và Bluetooth:
+
+Do mẫu điện thoại không có wifi và bluetooth quá ít nên không thể thống kê
+
+# GPS:
+
+```{r}
+new_data<-data
+new_data[new_data$GPS == "Yes",]['GPS']<-as.integer(1)
+new_data[new_data$GPS == "No",]['GPS']<-as.integer(0)
+new_data$GPS<-as.numeric(new_data$GPS)
+cor.test(new_data$Price,new_data$GPS)
+```
+
+# NumOfSims
+
+```{r}
+new_data<-data
+cor.test(new_data$Price,new_data$NumOfSims)
+```
+
+# 3G
+
+```{r}
+new_data<-data
+new_data[new_data$`3G` == "Yes",]['3G']<-as.integer(1)
+new_data[new_data$`3G` == "No",]['3G']<-as.integer(0)
+new_data$`3G`<-as.numeric(new_data$`3G`)
+cor.test(new_data$Price,new_data$`3G`)
+```
+
+# 4G
+
+```{r}
+new_data<-data
+new_data[new_data$`4G` == "Yes",]['4G']<-as.integer(1)
+new_data[new_data$`4G` == "No",]['4G']<-as.integer(0)
+new_data$`4G`<-as.numeric(new_data$`4G`)
+cor.test(new_data$Price,new_data$`4G`)
+```
+
+# Phần 4: Mô hình hoá dữ liệu
+
+```{r}
+new_data<-data
+
+new_data$Model<-as.numeric(as.factor(new_data$Model))
+
+new_data[new_data$Touchscreen == "Yes",]$Touchscreen<-as.integer(1)
+new_data[new_data$Touchscreen == "No",]$Touchscreen<-as.integer(0)
+new_data$Touchscreen<-as.numeric(new_data$Touchscreen)
+
+new_data$OS = as.numeric(as.factor(new_data$OS))
+
+new_data[new_data$GPS == "Yes",]['GPS']<-as.integer(1)
+new_data[new_data$GPS == "No",]['GPS']<-as.integer(0)
+new_data$GPS<-as.numeric(new_data$GPS)
+
+new_data[new_data$`3G` == "Yes",]['3G']<-as.integer(1)
+new_data[new_data$`3G` == "No",]['3G']<-as.integer(0)
+new_data$`3G`<-as.numeric(new_data$`3G`)
+
+new_data[new_data$`4G` == "Yes",]['4G']<-as.integer(1)
+new_data[new_data$`4G` == "No",]['4G']<-as.integer(0)
+new_data$`4G`<-as.numeric(new_data$`4G`)
+
+```
+
+```{r}
+head(new_data,10)
+```
+
+```{r}
+lm(Price ~ new_data$Model+
+     new_data$Battery+
+     new_data$Screensize+
+     new_data$Touchscreen+
+     new_data$Resolution.x+
+     new_data$Resolution.y+
+     new_data$NumOfProcessor+
+     new_data$Ram+
+     new_data$InternalStorage+
+     new_data$RearCamera+
+     new_data$FrontCamera+
+     new_data$OS+
+     new_data$Wifi+
+     new_data$Bluetooth+
+     new_data$GPS+
+     new_data$NumOfSims+
+     new_data$`3G`+
+     new_data$`4G`
+   ,data = new_data)
 ```

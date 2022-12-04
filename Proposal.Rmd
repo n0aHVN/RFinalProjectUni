@@ -318,3 +318,20 @@ Xây dựng mô hình dự đoán biến kết quả là giá của điện tho�
 ### **4) Kế hoạch thực hiện và phân công công việc:**
 
 Kế hoạch thực hiện:
+<<<<<<< Updated upstream
+=======
+
+Hiện tại, tiếp tục nghiên cứu, tìm hiểu về mô hình regression.
+
+Hoàn thành Milestone trước 27/11/2022
+
+Làm Presentation và report trước 11/12/2022
+
+Phân công công việc:
+
+| STT | MSSV     | Họ và Tên               | Phân công                            |
+|-----|----------|-------------------------|--------------------------------------|
+| 09  | 20133029 | Nguyễn Trí Dũng         | Kiểm kê giả thuyết + Mô hình dự đoán |
+| 30  | 20133090 | Nguyễn Khoa Quang Thắng | EDA + Mô hình dự đoán                |
+| 10  | 20133034 | Lê Minh Đăng            | EDA                                  |
+>>>>>>> Stashed changes
