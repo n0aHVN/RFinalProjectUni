@@ -49,7 +49,15 @@ data<-read.csv("./data.csv")
 ```
 
 ```{r}
+data['Price'] = data['Price']*0.012
+```
+
+```{r}
+
+
 glimpse(data)
+
+
 price<-data[['Price']]
 ```
 
@@ -67,6 +75,7 @@ colnames(data)[19]<-'NumOfSims'
 colnames(data)[20]<-'3G'
 colnames(data)[21]<-'4G'
 
+
 colnames(data)
 ```
 
@@ -79,7 +88,9 @@ any(is.na(data[1:1359,]))
 
 # Phần 3: Kiểm định giả thuyết
 
-# **Brand**
+## [***Biến phân loại:***]{.underline}
+
+### **Brand**
 
 ```{r}
 new_data<-data
@@ -90,7 +101,7 @@ new_brand<-as.numeric(new_brand)
 summary(aov(new_price~new_brand))
 ```
 
-# Model
+### Model
 
 ```{r}
 new_data<-data
@@ -102,7 +113,7 @@ anova_model<-aov(new_model~new_price)
 summary(anova_model)
 ```
 
-# Battery Capacity
+### Battery Capacity
 
 ```{r}
 battery<-data[['Battery']]
@@ -110,18 +121,7 @@ result<-cor.test(price,battery,method = 'pearson')
 print(result)
 ```
 
-2.2e-16 = 0.00000000000000022
-
-# Screensize
-
-```{r}
-screensize<-data[['Screensize']]
-result<-cor.test(price,screensize,method = 'pearson')
-print(result)
-
-```
-
-# Touchscreen
+### Touchscreen
 
 ```{r}
 new_data<-data
@@ -131,61 +131,7 @@ new_data$Touchscreen<-as.numeric(new_data$Touchscreen)
 cor.test(new_data$Price,new_data$Touchscreen)
 ```
 
-Ko có mối tương quan
-
-# Resolution.x
-
-```{r}
-res_x<-data[['Resolution.x']]
-result<-cor.test(price,res_x,method = 'pearson')
-print(result)
-
-```
-
-# Resolution.y
-
-```{r}
-res_y<-data[['Resolution.y']]
-result<-cor.test(price,res_y,method = 'pearson')
-print(result)
-```
-
-# NumOfPrecessor
-
-```{r}
-numOfProcessor<-data[['NumOfProcessor']]
-result<-cor.test(price,numOfProcessor,method = 'pearson')
-print(result)
-```
-
-# RAM
-
-```{r}
-ram<-data[['Ram']]
-result<-cor.test(price,ram,method = 'pearson')
-print(result)
-```
-
-# Internal storage
-
-```{r}
-cor.test(data$InternalStorage,data$Price,method = 'pearson')
-
-```
-
-# Rear Camera
-
-```{r}
-cor.test(data$RearCamera,data$Price,method = 'pearson')
-```
-
-# Front camera
-
-```{r}
-cor.test(data$FrontCamera,data$Price,method = 'pearson')
-```
-
-# Operating System
+### Operating System
 
 ```{r}
 new_data<-data
@@ -195,28 +141,7 @@ new_price = new_data$Price
 summary(aov(new_OS~new_price))
 ```
 
-Wifi và Bluetooth:
-
-Do mẫu điện thoại không có wifi và bluetooth quá ít nên không thể thống kê
-
-# GPS:
-
-```{r}
-new_data<-data
-new_data[new_data$GPS == "Yes",]['GPS']<-as.integer(1)
-new_data[new_data$GPS == "No",]['GPS']<-as.integer(0)
-new_data$GPS<-as.numeric(new_data$GPS)
-cor.test(new_data$Price,new_data$GPS)
-```
-
-# NumOfSims
-
-```{r}
-new_data<-data
-cor.test(new_data$Price,new_data$NumOfSims)
-```
-
-# 3G
+### 3G
 
 ```{r}
 new_data<-data
@@ -226,7 +151,7 @@ new_data$`3G`<-as.numeric(new_data$`3G`)
 cor.test(new_data$Price,new_data$`3G`)
 ```
 
-# 4G
+### 4G
 
 ```{r}
 new_data<-data
@@ -236,11 +161,95 @@ new_data$`4G`<-as.numeric(new_data$`4G`)
 cor.test(new_data$Price,new_data$`4G`)
 ```
 
-# Phần 4: Mô hình hoá dữ liệu
+## [*Biến liên tục:*]{.underline}
+
+### Screensize
+
+```{r}
+screensize<-data[['Screensize']]
+result<-cor.test(price,screensize,method = 'pearson')
+print(result)
+```
+
+### Resolution.x
+
+```{r}
+res_x<-data[['Resolution.x']]
+result<-cor.test(price,res_x,method = 'pearson')
+print(result)
+
+```
+
+### Resolution.y
+
+```{r}
+res_y<-data[['Resolution.y']]
+result<-cor.test(price,res_y,method = 'pearson')
+print(result)
+```
+
+### NumOfPrecessor
+
+```{r}
+numOfProcessor<-data[['NumOfProcessor']]
+result<-cor.test(price,numOfProcessor,method = 'pearson')
+print(result)
+```
+
+### RAM
+
+```{r}
+ram<-data[['Ram']]
+result<-cor.test(price,ram,method = 'pearson')
+print(result)
+```
+
+### Internal storage
+
+```{r}
+cor.test(data$InternalStorage,data$Price,method = 'pearson')
+
+```
+
+### Rear Camera
+
+```{r}
+cor.test(data$RearCamera,data$Price,method = 'pearson')
+```
+
+### Front camera
+
+```{r}
+cor.test(data$FrontCamera,data$Price,method = 'pearson')
+```
+
+### GPS:
 
 ```{r}
 new_data<-data
+new_data[new_data$GPS == "Yes",]['GPS']<-as.integer(1)
+new_data[new_data$GPS == "No",]['GPS']<-as.integer(0)
+new_data$GPS<-as.numeric(new_data$GPS)
+cor.test(new_data$Price,new_data$GPS)
+```
 
+### NumOfSims
+
+```{r}
+new_data<-data
+cor.test(new_data$Price,new_data$NumOfSims)
+```
+
+Wifi và Bluetooth:
+
+Do mẫu điện thoại không có wifi và bluetooth quá ít nên không thể thống kê
+
+# Phần 4: Mô hình hoá dữ liệu
+
+Chỉnh sửa lại data để phù hợp với hàm tuyến tính:
+
+```{r}
+new_data<-data
 new_data$Model<-as.numeric(as.factor(new_data$Model))
 
 new_data[new_data$Touchscreen == "Yes",]$Touchscreen<-as.integer(1)
@@ -248,6 +257,14 @@ new_data[new_data$Touchscreen == "No",]$Touchscreen<-as.integer(0)
 new_data$Touchscreen<-as.numeric(new_data$Touchscreen)
 
 new_data$OS = as.numeric(as.factor(new_data$OS))
+
+new_data[new_data$Bluetooth == "Yes",]['Bluetooth']<-as.integer(1)
+new_data[new_data$Bluetooth == "No",]['Bluetooth']<-as.integer(0)
+new_data$Bluetooth<-as.numeric(new_data$Bluetooth)
+
+new_data[new_data$Wifi == "Yes",]['Wifi']<-as.integer(1)
+new_data[new_data$Wifi == "No",]['Wifi']<-as.integer(0)
+new_data$Wifi<-as.numeric(new_data$Wifi)
 
 new_data[new_data$GPS == "Yes",]['GPS']<-as.integer(1)
 new_data[new_data$GPS == "No",]['GPS']<-as.integer(0)
@@ -261,30 +278,153 @@ new_data[new_data$`4G` == "Yes",]['4G']<-as.integer(1)
 new_data[new_data$`4G` == "No",]['4G']<-as.integer(0)
 new_data$`4G`<-as.numeric(new_data$`4G`)
 
-```
-
-```{r}
 head(new_data,10)
 ```
 
 ```{r}
-lm(Price ~ new_data$Model+
-     new_data$Battery+
-     new_data$Screensize+
-     new_data$Touchscreen+
-     new_data$Resolution.x+
-     new_data$Resolution.y+
-     new_data$NumOfProcessor+
-     new_data$Ram+
-     new_data$InternalStorage+
-     new_data$RearCamera+
-     new_data$FrontCamera+
-     new_data$OS+
-     new_data$Wifi+
-     new_data$Bluetooth+
-     new_data$GPS+
-     new_data$NumOfSims+
-     new_data$`3G`+
-     new_data$`4G`
-   ,data = new_data)
+brand<-unique(data[order(data$Brand),]$Brand)
+numOfPhone<-c()
+
+for (i in 1:length(brand))
+{
+  numOfPhone<-append(numOfPhone,nrow(filter(data,data$Brand ==brand[i])))
+}
+
+brand_numOfPhone <-data.frame(brand,numOfPhone)
+brand_numOfPhone<-brand_numOfPhone%>%filter(numOfPhone>=6)
+brand_numOfPhone[1:nrow(brand_numOfPhone),1]
+
+new_data<-new_data %>% filter(new_data$Brand%in%brand_numOfPhone$brand)
+new_data<-new_data[order(new_data$Brand),]
+
+```
+
+```{r}
+glimpse(new_data)
+head(new_data,15)
+```
+
+**Mô hình tuyến tính cho mỗi hãng mà hãng đó có số thiết bị lớn hơn hoặc bằng 6:**
+
+```{r}
+for (x in brand_numOfPhone$brand)
+{
+  print(x)
+  temp_data<-new_data %>% filter(new_data$Brand == x)
+  regression<-lm(temp_data$Price ~
+     temp_data$Battery+
+     temp_data$Screensize+
+     temp_data$Touchscreen+
+     temp_data$Resolution.x+
+     temp_data$Resolution.y+
+     temp_data$NumOfProcessor+
+     temp_data$Ram+
+     temp_data$InternalStorage+
+     temp_data$RearCamera+
+     temp_data$FrontCamera+
+     temp_data$OS+
+     temp_data$Wifi+
+     temp_data$Bluetooth+
+     temp_data$GPS+
+     temp_data$NumOfSims+
+     temp_data$`3G`+
+     temp_data$`4G`
+   ,data = temp_data)
+    print(summary(regression))
+    print(cat('\n\n\n\n'))
+}
+```
+
+Dự đoán giá laptop:
+
+```{r}
+#test_data<-read.csv('./test_data.csv')
+#fn_RegressionBasedOnBrand(test_data,new_data)
+```
+
+```{r}
+fn_RegressionBasedOnBrand<-function(test_data,new_data){
+  if (!test_data$Brand %in% new_data$Brand)
+  {
+    print("Brand không tồn tại trong database!")
+    return(null)
+  }
+  
+  else if (!test_data$OS %in% new_data$OS)
+  {
+    print("OS không tồn tại trong database!")
+    return(null)
+  }
+  
+  
+  temp_data<-new_data[new_data$Brand == Brand,]
+  regression<-lm(temp_data$Price ~
+     temp_data$Battery+
+     temp_data$Screensize+
+     temp_data$Touchscreen+
+     temp_data$Resolution.x+
+     temp_data$Resolution.y+
+     temp_data$NumOfProcessor+
+     temp_data$Ram+
+     temp_data$InternalStorage+
+     temp_data$RearCamera+
+     temp_data$FrontCamera+
+     temp_data$OS+
+     temp_data$Wifi+
+     temp_data$Bluetooth+
+     temp_data$GPS+
+     temp_data$NumOfSims+
+     temp_data$`3G`+
+     temp_data$`4G`
+   ,data = temp_data)
+  
+  prediction<-predict(regression,newdata = regression)
+  
+  
+}
+
+
+
+
+```
+
+```{r}
+apple_data<-new_data%>%filter(new_data$Brand == 'Apple')
+
+regression<-lm(Price ~
+     apple_data$Battery+
+     apple_data$Screensize+
+     apple_data$Touchscreen+
+     apple_data$Resolution.x+
+     apple_data$Resolution.y+
+     apple_data$NumOfProcessor+
+     apple_data$Ram+
+     apple_data$InternalStorage+
+     apple_data$RearCamera+
+     apple_data$FrontCamera+
+     apple_data$OS+
+     apple_data$Wifi+
+     apple_data$Bluetooth+
+     apple_data$GPS+
+     apple_data$NumOfSims+
+     apple_data$`3G`+
+     apple_data$`4G`
+   ,data = apple_data)
+summary(regression)
+
+```
+
+```{r}
+regression_train<-apple_data%>%
+  mutate(PredictedPrice = predict(regression))
+regression_train[c('Name','Price','PredictedPrice')]
+```
+
+```{r}
+regression_train<-regression_train%>%
+                    mutate(error= PredictedPrice-Price,sq.error = error^2)
+regression_train[c('Name','Price','PredictedPrice','error','sq.error')]
+mse<-mean(regression_train$sq.error)
+rmse<-sqrt(mse)
+rmse
 ```
