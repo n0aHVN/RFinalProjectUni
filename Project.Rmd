@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r,include=FALSE}
 library(tidyverse)
 library(knitr)
+library(caret)
 ```
 
 # **Danh sách thành viên:**
@@ -44,7 +45,7 @@ Và trong đề tài này, dataset được nhóm 2 thống nhất sử dụng c
 <h1 style="font-size: 20px">
 <h1>
 ```
-Đọc dữ liệu từ file data.csv
+Đọc dữ liệu từ file data.csv:
 
 ```{r}
 data<-read.csv("./data.csv")
@@ -56,11 +57,13 @@ Chuyển đổi Rupee (đơn vị tiền tệ của Ấn Độ) sang Dollar Mỹ
 data['Price'] = data['Price']*0.012
 ```
 
+Xem thuộc tính và một vài dòng dữ liệu:
+
 ```{r}
-
 glimpse(data)
-
 ```
+
+Chuyển đổi tên của các thuộc tính để thuận tiện:
 
 ```{r}
 colnames(data)[5]<-'Battery'
@@ -80,41 +83,55 @@ colnames(data)[21]<-'4G'
 colnames(data)
 ```
 
+Kiểm tra xem có dữ liệu nào bị rỗng không:
+
 ```{r}
-any(is.na(data[1:1359,]))
+any(is.na(data[1:nrow(data),]))
 
 ```
 
-# Phần 2: Mô hình hoá dữ liệu
+# Phần 2: Mô hình hoá dữ liệu:
 
-# Phần 3: Kiểm định giả thuyết
+# Phần 3: Kiểm định giả thuyết:
+
+Do dataset của nhóm có 3 loại biến là binary, continuous và nominal, nên phần kiểm định giả thuyết nhóm sẽ áp dụng phương pháp kiểm kê cho phù hợp với từng trường hợp.
+
+3 phương pháp kiểm kê mà nhóm sẽ sử dụng:
+
+-   Phân tích tương quan Pearson cho 2 biến continuous.
+
+-   One-way ANOVA F-test cho biến nominal và continuous.
+
+-   Phân tích tương quan Point Biserial cho biến binary và continous.
 
 ## [***Biến phân loại:***]{.underline}
 
 ### **Brand**
 
+Phương pháp: One-way ANOVA F-test.
+
+H~0~: Không có sự khác biệt về giá trung bình giữa các hãng điện thoại.
+
+H~1~: Có sự khác biệt về giá trung bình giữa các hãng điện thoại.
+
 ```{r}
 new_data<-data
 new_data<-new_data[order(new_data$Brand),]
-new_brand = as.factor(new_data$Brand)
+new_brand = `as.factor`(new_data$Brand)
 new_price = new_data$Price
 new_brand<-as.numeric(new_brand)
 summary(aov(new_price~new_brand))
 ```
 
-### Model
-
-```{r}
-new_data<-data
-new_data<-new_data[order(new_data$Model),]
-new_model <- as.factor(new_data$Model)
-new_price = new_data$Price
-new_model<-as.numeric(new_model)
-anova_model<-aov(new_model~new_price)
-summary(anova_model)
-```
+Do p = 0.369 \> 0.05 =\> Không có sự khác biệt về giá trung bình giữa các hãng điện thoại.
 
 ### Touchscreen
+
+Phương pháp: Phân tích tương quan Point Biserial.
+
+H~0~: Không có sự khác biệt về giá trung bình giữa điện thoại có cảm ứng và không có cảm ứng.
+
+H~1~: Có sự khác biệt về giá trung bình giữa điện thoại có cảm ứng và không có cảm ứng.
 
 ```{r}
 new_data<-data
@@ -124,7 +141,15 @@ new_data$Touchscreen<-as.numeric(new_data$Touchscreen)
 cor.test(new_data$Price,new_data$Touchscreen)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa Touchscreen và giá.
+
 ### Operating System
+
+Phương pháp: One-way ANOVA F-test.
+
+H~0~: Không có sự khác biệt về giá trung bình giữa điện thoại có hệ điều hành khác nhau.
+
+H~1~: Có sự khác biệt về giá trung bình giữa điện thoại có hệ điều hành khác nhau.
 
 ```{r}
 new_data<-data
@@ -136,6 +161,12 @@ summary(aov(new_OS~new_price))
 
 ### GPS:
 
+Phương pháp: Phân tích tương quan Point Biserial.
+
+H~0~: Không có mối quan hệ tuyến tính giữa GPS và giá.
+
+H~1~: Có mối quan hệ tuyến tính nào giữa GPS và giá.
+
 ```{r}
 new_data<-data
 new_data[new_data$GPS == "Yes",]['GPS']<-as.integer(1)
@@ -144,7 +175,15 @@ new_data$GPS<-as.numeric(new_data$GPS)
 cor.test(new_data$Price,new_data$GPS)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa GPS và giá.
+
 ### 3G
+
+Phương pháp: Phân tích tương quan Point Biserial.
+
+H~0~: Không có mối quan hệ tuyến tính giữa 3G và giá.
+
+H~1~: Có mối quan hệ tuyến tính nào giữa 3G và giá.
 
 ```{r}
 new_data<-data
@@ -154,7 +193,15 @@ new_data$`3G`<-as.numeric(new_data$`3G`)
 cor.test(new_data$Price,new_data$`3G`)
 ```
 
+cor xấp xỉ 0=\> Không mối quan hệ tuyến tính giữa 3G và giá.
+
 ### 4G
+
+Phương pháp: Phân tích tương quan Point Biserial.
+
+H~0~: Không có mối quan hệ tuyến tính giữa 4G và giá.
+
+H~1~: Có mối quan hệ tuyến tính nào giữa 4G và giá.
 
 ```{r}
 new_data<-data
@@ -164,23 +211,47 @@ new_data$`4G`<-as.numeric(new_data$`4G`)
 cor.test(new_data$Price,new_data$`4G`)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa 4G và giá.
+
 ## [*Biến liên tục:*]{.underline}
 
 ### Battery Capacity
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa battery capacity và giá.
+
+H~1~: Có mối quan hệ tuyến tính giữa battery capacity và giá.
 
 ```{r}
 result<-cor.test(data$Price,data$Battery,method = 'pearson')
 print(result)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa battery capacity và giá.
+
 ### Screensize
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa screensize và giá.
+
+H~1~: Có mối quan hệ tuyến tính giữa screensize và giá.
 
 ```{r}
 result<-cor.test(data$Price,data$Screensize,method = 'pearson')
 print(result)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa screensize và giá.
+
 ### Resolution.x
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa resolution.x và giá
+
+H~1~: Có mối quan hệ tuyến tính giữa resolution.x và giá
 
 ```{r}
 result<-cor.test(data$Price,data$Resolution.x,method = 'pearson')
@@ -188,58 +259,116 @@ print(result)
 
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa Resolution.x và giá.
+
 ### Resolution.y
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa resolution.y và giá
+
+H~1~: Có mối quan hệ tuyến tính giữa resolution.y và giá
 
 ```{r}
 result<-cor.test(data$Price,data$Resolution.y,method = 'pearson')
 print(result)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa Resolution.y và giá.
+
 ### NumOfProcessor
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa NumOfProcessor và giá
+
+H~1~: Có mối quan hệ tuyến tính giữa NumOfProcessor và giá
 
 ```{r}
 result<-cor.test(data$Price,data$NumOfProcessor,method = 'pearson')
 print(result)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa NumOfProcessor và giá.
+
 ### RAM
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa ram và giá
+
+H~1~: Có mối quan hệ tuyến tính giữa ram và giá
 
 ```{r}
 result<-cor.test(data$Price,data$Ram,method = 'pearson')
 print(result)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa RAM và giá.
+
 ### Internal storage
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa Internal storage và giá
+
+H~1~: Có mối quan hệ tuyến tính giữa Internal storage và giá
 
 ```{r}
 result<-cor.test(data$InternalStorage,data$Price,method = 'pearson')
 print(result)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa Internal storage và giá.
+
 ### Rear Camera
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa Rear Camera và giá
+
+H~1~: Có mối quan hệ tuyến tính giữa Rear Camera và giá
 
 ```{r}
 result<-cor.test(data$RearCamera,data$Price,method = 'pearson')
 print(result)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa Rear Camera và giá.
+
 ### Front camera
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa Front camera và giá
+
+H~1~: Có mối quan hệ tuyến tính giữa Front camera và giá
 
 ```{r}
 result<-cor.test(data$FrontCamera,data$Price,method = 'pearson')
 print(result)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa Front camera và giá.
+
 ### NumOfSims
+
+Phương pháp: Phân tích tương quan Pearson.
+
+H~0~: Không có mối quan hệ tuyến tính giữa NumOfSims và giá
+
+H~1~: Có mối quan hệ tuyến tính giữa NumOfSims và giá
 
 ```{r}
 result<-cor.test(data$Price,data$NumOfSims)
 print(result)
 ```
 
+cor != 0=\> Có mối quan hệ tuyến tính giữa NumOfSims và giá.
+
 Wifi và Bluetooth:
 
-Do mẫu điện thoại không có wifi và bluetooth quá ít nên không thể thống kê
+Do mẫu điện thoại không có wifi và bluetooth quá ít nên không thể kiểm định.
 
 # Phần 4: Mô hình hoá dữ liệu
 
@@ -247,36 +376,38 @@ Chỉnh sửa lại data để phù hợp với hàm tuyến tính:
 
 ```{r}
 new_data<-data
-new_data$Model<-as.numeric(as.factor(new_data$Model))
-
+#new_data$Model<-as.numeric(as.factor(new_data$Model))
+#Đổi biến Touchscreen về dạng số
 new_data[new_data$Touchscreen == "Yes",]$Touchscreen<-as.integer(1)
 new_data[new_data$Touchscreen == "No",]$Touchscreen<-as.integer(0)
 new_data$Touchscreen<-as.numeric(new_data$Touchscreen)
-
+#Đổi biến OS về dạng số
 new_data$OS = as.numeric(as.factor(new_data$OS))
-
+#Đổi biến Bluetooth về dạng số
 new_data[new_data$Bluetooth == "Yes",]['Bluetooth']<-as.integer(1)
 new_data[new_data$Bluetooth == "No",]['Bluetooth']<-as.integer(0)
 new_data$Bluetooth<-as.numeric(new_data$Bluetooth)
-
+#Đổi biến Wifi về dạng số
 new_data[new_data$Wifi == "Yes",]['Wifi']<-as.integer(1)
 new_data[new_data$Wifi == "No",]['Wifi']<-as.integer(0)
 new_data$Wifi<-as.numeric(new_data$Wifi)
-
+#Đổi biến GPS về dạng số
 new_data[new_data$GPS == "Yes",]['GPS']<-as.integer(1)
 new_data[new_data$GPS == "No",]['GPS']<-as.integer(0)
 new_data$GPS<-as.numeric(new_data$GPS)
-
+#Đổi biến 3G về dạng số
 new_data[new_data$`3G` == "Yes",]['3G']<-as.integer(1)
 new_data[new_data$`3G` == "No",]['3G']<-as.integer(0)
 new_data$`3G`<-as.numeric(new_data$`3G`)
-
+#Đổi biến 4G về dạng số
 new_data[new_data$`4G` == "Yes",]['4G']<-as.integer(1)
 new_data[new_data$`4G` == "No",]['4G']<-as.integer(0)
 new_data$`4G`<-as.numeric(new_data$`4G`)
 
 head(new_data,10)
 ```
+
+Tạo ra bảng brand_numOfPhone để lưu số lượng điện thoại cho từng hãng:
 
 ```{r}
 brand<-unique(data[order(data$Brand),]$Brand)
@@ -288,82 +419,93 @@ for (i in 1:length(brand))
 }
 
 brand_numOfPhone <-data.frame(brand,numOfPhone)
-brand_numOfPhone<-brand_numOfPhone%>%filter(numOfPhone>=18)
-brand_numOfPhone[1:nrow(brand_numOfPhone),1]
+brand_numOfPhone<-brand_numOfPhone%>%filter(numOfPhone>18)
 
 new_data<-new_data %>% filter(new_data$Brand%in%brand_numOfPhone$brand)
 new_data<-new_data[order(new_data$Brand),]
-
+head(brand_numOfPhone,10)
 ```
 
-```{r}
+Tách ra làm tập dữ liệu để Training và Test:
 
+```{r}
+inTrain<-createDataPartition(new_data$Price,p=0.8,list=FALSE)
+train_data<-new_data[inTrain,]
+test_data<-new_data[-inTrain,]
+train_data
+```
+
+Tạo ra bảng OStoNum để quy đổi OS ra số
+
+```{r}
 OStoNum<-data.frame(OS = unique(data[order(data$OS),]$OS))
 OStoNum$Num<-c(1:nrow(OStoNum))
 OStoNum
 ```
 
+Cùng xem lại new_data sau khi chuyển đổi:
+
 ```{r}
-glimpse(new_data)
 head(new_data)
 ```
 
 ```{r}
-test_data<-read.csv('./test_data.csv')
-colnames(test_data)[5]<-'Battery'
-colnames(test_data)[6]<-'Screensize'
-colnames(test_data)[10]<-'NumOfProcessor'
-colnames(test_data)[11]<-'Ram'
-colnames(test_data)[12]<-'InternalStorage'
-colnames(test_data)[13]<-'RearCamera'
-colnames(test_data)[14]<-'FrontCamera'
-colnames(test_data)[15]<-'OS'
-colnames(test_data)[16]<-'Wifi'
-colnames(test_data)[19]<-'NumOfSims'
-colnames(test_data)[20]<-'3G'
-colnames(test_data)[21]<-'4G'
-test_data[test_data$Touchscreen == "Yes",]$Touchscreen<-as.integer(1)
+#test_data<-read.csv('./test_data.csv')
+#colnames(test_data)[5]<-'Battery'
+#colnames(test_data)[6]<-'Screensize'
+#colnames(test_data)[10]<-'NumOfProcessor'
+##colnames(test_data)[11]<-'Ram'
+#colnames(test_data)[12]<-'InternalStorage'
+#colnames(test_data)[13]<-'RearCamera'
+#colnames(test_data)[14]<-'FrontCamera'
+#colnames(test_data)[15]<-'OS'
+#colnames(test_data)[16]<-'Wifi'
+#colnames(test_data)[19]<-'NumOfSims'
+#colnames(test_data)[20]<-'3G'
+#colnames(test_data)[21]<-'4G'
+#test_data[test_data$Touchscreen == "Yes",]$Touchscreen<-as.integer(1)
 #test_data[test_data$Touchscreen == "No",]$Touchscreen<-as.integer(0)
-test_data$Touchscreen<-as.numeric(test_data$Touchscreen)
+#test_data$Touchscreen<-as.numeric(test_data$Touchscreen)
 
-for (i in 1:nrow(test_data))
-{
-    for (j in 1:nrow(OStoNum))
-    {
-      if (test_data[i,]$OS==OStoNum[j,]$OS)
-      {
-        test_data[i,]$OS = OStoNum[j,]$Num
-      }
-    }
-}
-test_data$OS<-as.numeric(test_data$OS)
-test_data[test_data$Bluetooth == "Yes",]['Bluetooth']<-as.integer(1)
+#for (i in 1:nrow(test_data))
+#{
+#    for (j in 1:nrow(OStoNum))
+#    {
+#      if (test_data[i,]$OS==OStoNum[j,]$OS)
+#      {
+#        test_data[i,]$OS = OStoNum[j,]$Num
+#      }
+#    }
+#}
+#regression_data$Brand<-as.numeric(as.factor(regression_data$Brand))
+#test_data$OS<-as.numeric(test_data$OS)
+#test_data[test_data$Bluetooth == "Yes",]['Bluetooth']<-as.integer(1)
 #test_data[test_data$Bluetooth == "No",]['Bluetooth']<-as.integer(0)
-test_data$Bluetooth<-as.numeric(test_data$Bluetooth)
+#test_data$Bluetooth<-as.numeric(test_data$Bluetooth)
 
-test_data[test_data$Wifi == "Yes",]['Wifi']<-as.integer(1)
+#test_data[test_data$Wifi == "Yes",]['Wifi']<-as.integer(1)
 #test_data[test_data$Wifi == "No",]['Wifi']<-as.integer(0)
-test_data$Wifi<-as.numeric(test_data$Wifi)
+#test_data$Wifi<-as.numeric(test_data$Wifi)
 
-test_data[test_data$GPS == "Yes",]['GPS']<-as.integer(1)
+#test_data[test_data$GPS == "Yes",]['GPS']<-as.integer(1)
 #test_data[test_data$GPS == "No",]['GPS']<-as.integer(0)
-test_data$GPS<-as.numeric(test_data$GPS)
+#test_data$GPS<-as.numeric(test_data$GPS)
 
-test_data[test_data$`3G` == "Yes",]['3G']<-as.integer(1)
+#test_data[test_data$`3G` == "Yes",]['3G']<-as.integer(1)
 #test_data[test_data$`3G` == "No",]['3G']<-as.integer(0)
-test_data$`3G`<-as.numeric(test_data$`3G`)
+#test_data$`3G`<-as.numeric(test_data$`3G`)
 
-test_data[test_data$`4G` == "Yes",]['4G']<-as.integer(1)
+#test_data[test_data$`4G` == "Yes",]['4G']<-as.integer(1)
 #test_data[test_data$`4G` == "No",]['4G']<-as.integer(0)
-test_data$`4G`<-as.numeric(test_data$`4G`)
+#test_data$`4G`<-as.numeric(test_data$`4G`)
 
-head(test_data,10)
+#head(test_data,10)
 ```
 
 **Mô hình dự đoán giá điện thoại cho tất cả điện thoại**
 
 ```{r}
-regression_data<-new_data
+regression_data<-train_data
 regression_data$Brand<-as.numeric(as.factor(regression_data$Brand))
 regression<-lm(regression_data$Price ~
      regression_data$Brand+
@@ -400,15 +542,18 @@ oneForAll
 mse<-mean(oneForAll$sq.error)
 rmse<-sqrt(mse)
 rmse
+
+t.test(oneForAll$error,conf.level = 0.95)
 ```
 
-**Mô hình tuyến tính cho mỗi hãng mà hãng đó có số thiết bị lớn hơn hoặc bằng 6:**
+**Mô hình tuyến tính cho mỗi hãng:**
 
 ```{r,echo=TRUE,include=FALSE}
+#include=FALSE
 for (x in brand_numOfPhone$brand)
 {
   print(x)
-  temp_data<-new_data %>% filter(new_data$Brand == x)
+  temp_data<-train_data %>% filter(train_data$Brand == x)
   regression<-lm(temp_data$Price ~
      temp_data$Battery+
      temp_data$Screensize+
@@ -490,7 +635,7 @@ fn_RegressionBasedOnBrand<-function(test_data,new_data){
   return(result)
 }
 suppressWarnings({
-  modelForeachBrand<-fn_RegressionBasedOnBrand(test_data,new_data)
+  modelForeachBrand<-fn_RegressionBasedOnBrand(test_data,train_data)
 })
 modelForeachBrand<-modelForeachBrand%>%
   mutate(error= PredictedPrice-Price,sq.error = error^2)
@@ -498,7 +643,7 @@ print(modelForeachBrand)
 mse_ForeachBrand<-mean(na.omit(modelForeachBrand$sq.error))
 rmse_ForeachBrand<-sqrt(mse_ForeachBrand)
 rmse_ForeachBrand
-
+t.test(na.omit(modelForeachBrand$error),conf.level = 0.95)
 ```
 
 ```{r}
@@ -508,4 +653,94 @@ rmse_ForeachBrand
 #mse<-mean(regression_train$sq.error)
 #rmse<-sqrt(mse)
 #rmse
+```
+
+k-NN:
+
+One-hot encoding:
+
+```{r}
+kNN_train_data<-train_data
+
+#Thêm cột cho tập kNN_train_data theo 
+for (i in 1:nrow(brand_numOfPhone))
+{
+  #Lấy giá unique trong cột Brand rồi tạo cột mới theo Brand đó
+  new_column_name<-brand_numOfPhone[i,]$brand
+  #Gán tất cả giá trị của cột đó bằng 0
+  kNN_train_data[new_column_name]<-0
+}
+#Gán encoding cho tập kNN_train_data:
+for (i in 1:nrow(kNN_train_data))
+{
+  #Lấy Brand của cột đó
+  column_name<-kNN_train_data[i,]$Brand
+  #Gán giá trị 1 với cột có tên giống với column_name
+  kNN_train_data[i,column_name]<-1
+}
+kNN_train_data<-subset(kNN_train_data,select = -c(X,Name,Brand,Model))
+kNN_train_data
+```
+
+```{r}
+kNN_test_data<-test_data
+#Thêm cột cho tập kNN_test_data theo 
+for (i in 1:nrow(brand_numOfPhone))
+{
+  #Lấy giá unique trong cột Brand rồi tạo cột mới theo Brand đó
+  new_column_name<-brand_numOfPhone[i,]$brand
+  #Gán tất cả giá trị của cột đó bằng 0
+  kNN_test_data[new_column_name]<-0
+}
+#Gán encoding cho tập kNN_test_data:
+for (i in 1:nrow(kNN_test_data))
+{
+  #Lấy Brand của cột đó
+  column_name<-kNN_test_data[i,]$Brand
+  #Gán giá trị 1 với cột có tên giống với column_name
+  kNN_test_data[i,column_name]<-1
+}
+kNN_test_data<-subset(kNN_test_data,select = -c(X,Name,Brand,Model))
+
+kNN_test_data
+
+```
+
+```{r}
+
+set.seed(1)
+#inTrain<-createDataPartition(kNNdata$Price,p=0.8,list=FALSE)
+#knn_training<-kNNdata[inTrain,]
+#knn_test<-kNNdata[-inTrain,]
+
+#knn_test<-as.data.frame(do.call(cbind, knn_test))
+#knn_training<-as.data.frame(do.call(cbind, knn_training))
+
+tuneGrid<-expand.grid(k=seq(1,59, by=2))
+
+kNNModel<-train(Price~.,data = kNN_train_data, method = 'knn', 
+                preProcess = c('center','scale'), 
+                trControl = trainControl(method ='repeatedcv',number=10,repeats = 5),tuneGrid = tuneGrid)
+
+summary(kNNModel)
+```
+
+```{r}
+#kNNModel$results
+kNN_result<-data.frame(Price = kNN_test_data$Price,
+                       PredictedPrice = predict(kNNModel,kNN_test_data))
+#knn_rmse<-sqrt(mean(kNN_result$Price-kNN_result$PredictedPrice)^2)
+kNN_result<-kNN_result%>%
+  mutate(error= PredictedPrice-Price,sq.error = error^2)
+knn_rmse<-sqrt(mean(kNN_result$sq.error))
+kNN_result
+knn_rmse
+min(abs(kNN_result$error))
+max(abs(kNN_result$error))
+t.test(kNN_result$error,conf.level = 0.95)
+
+qqnorm(resid(kNNModel))
+qqline(resid(kNNModel))
+plot(fitted(kNNModel),resid(kNNModel),ylim=c(-50,50))
+
 ```

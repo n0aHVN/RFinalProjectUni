@@ -23,3 +23,29 @@
 22,Xiaomi Mi 11 Pro,Xiaomi,Mi 11 Pro,5000,6.81,Yes,1440,3200,8,12000,128,50,20,Android,Yes,Yes,Yes,2,Yes,Yes,649.02
 23,Xiaomi 11T,Xiaomi,11T,5000,6.67,Yes,1080,2400,8,8000,128,108,16,Android,Yes,Yes,Yes,2,Yes,Yes,293.64
 24,Xiaomi 11T Pro,Xiaomi,11T Pro,5000,6.91,Yes,1440,3200,8,12000,128,50,20,Android,Yes,Yes,Yes,2,Yes,Yes,377.65
+25,Nokia G21,Nokia,G21,5050,6.5,Yes,720,1600,3,6000,64,50,8,Android,Yes,Yes,Yes,2,Yes,Yes,152.28
+26,Nokia G11,Nokia,G11,5050,6.5,Yes,720,1600,3,4000,32,13,8,Android,Yes,Yes,Yes,2,Yes,Yes,114.1
+27,Nokia C31,Nokia,C31,5050,6.75,Yes,720,1600,3,4000,32,13,5,Android,Yes,Yes,Yes,2,Yes,Yes,99.26
+28,Nokia C21,Nokia,C21,3000,6.52,Yes,720,1600,2,3000,32,8,5,Android,Yes,Yes,Yes,2,Yes,Yes,80.17
+29,Nokia C30,Nokia,C30,6000,6.82,Yes,720,1600,2,3000,32,13,5,Android,Yes,Yes,Yes,2,Yes,Yes,76.78
+30,Google Pixel 7 Pro,Google,Pixel 7 Pro,5000,6.7,Yes,1440,3120,8,12000,128,50,10.8,Android,Yes,Yes,Yes,2,Yes,Yes,954.4
+31,Google Pixel 7 ,Google,Pixel 7 ,4355,6.3,Yes,1080,2400,8,8000,128,50,10.8,Android,Yes,Yes,Yes,2,Yes,Yes,746.55
+32,Google Pixel 6a,Google,Pixel 6a,4410,6.1,Yes,1080,2400,6,6000,128,12.2,8,Android,Yes,Yes,Yes,2,Yes,Yes,407.21
+33,Google Pixel 6,Google,Pixel 6,4614,6.4,Yes,1080,2400,8,8000,128,50,8,Android,Yes,Yes,Yes,2,Yes,Yes,521.31
+34,Google Pixel 6 Pro,Google,Pixel 6 Pro,5003,6.7,Yes,1440,3120,12,12000,128,50,11.1,Android,Yes,Yes,Yes,2,Yes,Yes,572.64
+35,One Plus 11,OnePlus,11,5000,6.7,Yes,1440,3216,8,8000,128,50,16,Android,Yes,Yes,Yes,2,Yes,Yes,975.61
+36,One Plus 10 Pro,OnePlus,10 Pro,5000,6.7,Yes,1440,3216,8,12000,128,48,32,Android,Yes,Yes,Yes,2,Yes,Yes,708.38
+37,One Plus 10T,OnePlus,10T,4800,6.7,Yes,1080,2412,8,8000,128,50,16,Android,Yes,Yes,Yes,2,Yes,Yes,635.84
+38,One Plus 9 Pro,OnePlus,9 Pro,4500,6.7,Yes,1440,3216,8,12000,128,48,16,Android,Yes,Yes,Yes,2,Yes,Yes,400.85
+39,One Plus 9 ,OnePlus,9,4500,6.55,Yes,1080,2400,8,12000,128,48,16,Android,Yes,Yes,Yes,2,Yes,Yes,389.82
+40,Asus Zenfone 9,Asus,Zenfone 9,4300,5.9,Yes,1080,2400,6,8000,128,50,12,Android,Yes,Yes,Yes,2,Yes,Yes,691.41
+41,Asus Zenfone 8,Asus,Zenfone 8,4000,5.9,Yes,1080,2400,6,8000,128,64,12,Android,Yes,Yes,Yes,2,Yes,Yes,636.27
+42,Asus ROG Phone 6 Pro,Asus,ROG Phone 6 Pro,6000,6.78,Yes,1080,2448,8,18000,512,50,12,Android,Yes,Yes,Yes,2,Yes,Yes,975.61
+43,Asus ROG Phone 6 ,Asus,ROG Phone 6 ,6000,6.78,Yes,1080,2448,8,16000,128,50,12,Android,Yes,Yes,Yes,2,Yes,Yes,848.36
+44,Asus ROG Phone 5,Asus,ROG Phone 5,6000,6.78,Yes,1080,2448,8,16000,128,64,24,Android,Yes,Yes,Yes,2,Yes,Yes,721.1
+45,Asus ROG Phone 5S,Asus,ROG Phone 5S,6000,6.78,Yes,1080,2448,8,16000,128,64,24,Android,Yes,Yes,Yes,2,Yes,Yes,750.37
+46,Realme 10 Pro+,Realme,10 Pro+,5000,6.7,Yes,1080,2412,8,12000,128,108,16,Android,Yes,Yes,Yes,2,Yes,Yes,283.78
+47,Realme 10 Pro,Realme,10 Pro,5000,6.72,Yes,1080,2400,8,12000,128,108,16,Android,Yes,Yes,Yes,2,Yes,Yes,211.66
+48,Realme 10,Realme,10,5000,6.4,Yes,1080,2400,4,8000,64,50,16,Android,Yes,Yes,Yes,2,Yes,Yes,139.98
+49,Realme 9,Realme,9,5000,6.4,Yes,1080,2400,6,8000,128,108,16,Android,Yes,Yes,Yes,2,Yes,Yes,194.7
+50,Realme C35,Realme,C35,5000,6.6,Yes,1080,2408,4,6000,64,50,8,Android,Yes,Yes,Yes,2,Yes,Yes,160.76
