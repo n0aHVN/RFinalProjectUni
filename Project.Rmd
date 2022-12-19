@@ -290,30 +290,11 @@ H~1~: Có sự khác biệt về giá trung bình giữa các hãng điện tho�
 new_data<-data
 new_data<-new_data[order(new_data$Brand),]
 new_brand = `as.factor`(new_data$Brand)
-new_price = new_data$Price
 new_brand<-as.numeric(new_brand)
-summary(aov(new_price~new_brand))
+summary(aov(new_data$Price~new_brand))
 ```
 
 Do p = 0.369 \> 0.05 =\> Không có sự khác biệt về giá trung bình giữa các hãng điện thoại.
-
-### Touchscreen
-
-Phương pháp: Phân tích tương quan Point Biserial.
-
-H~0~: Không có sự khác biệt về giá trung bình giữa điện thoại có cảm ứng và không có cảm ứng.
-
-H~1~: Có sự khác biệt về giá trung bình giữa điện thoại có cảm ứng và không có cảm ứng.
-
-```{r}
-new_data<-data
-new_data[new_data$Touchscreen == "Yes",]['Touchscreen']<-as.integer(1)
-new_data[new_data$Touchscreen == "No",]['Touchscreen']<-as.integer(0)
-new_data$Touchscreen<-as.numeric(new_data$Touchscreen)
-cor.test(new_data$Price,new_data$Touchscreen)
-```
-
-cor != 0=\> Có mối quan hệ tuyến tính giữa Touchscreen và giá.
 
 ### Operating System
 
@@ -327,8 +308,7 @@ H~1~: Có sự khác biệt về giá trung bình giữa điện thoại có h�
 new_data<-data
 new_data<-new_data[order(new_data$OS),]
 new_OS = as.numeric(as.factor(new_data$OS))
-new_price = new_data$Price
-summary(aov(new_OS~new_price))
+summary(aov(new_data$Price~new_OS))
 ```
 
 ### GPS:
@@ -343,7 +323,6 @@ H~1~: Có mối quan hệ tuyến tính nào giữa GPS và giá.
 new_data<-data
 new_data[new_data$GPS == "Yes",]['GPS']<-as.integer(1)
 new_data[new_data$GPS == "No",]['GPS']<-as.integer(0)
-new_data$GPS<-as.numeric(new_data$GPS)
 cor.test(new_data$Price,new_data$GPS)
 ```
 
@@ -386,6 +365,24 @@ cor.test(new_data$Price,new_data$`4G`)
 cor != 0=\> Có mối quan hệ tuyến tính giữa 4G và giá.
 
 ## [*Biến liên tục:*]{.underline}
+
+### Touchscreen
+
+Phương pháp: Phân tích tương quan Point Biserial.
+
+H~0~: Không có mối quan hệ tuyến tính giữa điện thoại có cảm ứng và không có cảm ứng.
+
+H~1~: Có mối quan hệ tuyến tính giữa điện thoại có cảm ứng và không có cảm ứng.
+
+```{r}
+new_data<-data
+new_data[new_data$Touchscreen == "Yes",]['Touchscreen']<-as.integer(1)
+new_data[new_data$Touchscreen == "No",]['Touchscreen']<-as.integer(0)
+new_data$Touchscreen<-as.numeric(new_data$Touchscreen)
+cor.test(new_data$Price,new_data$Touchscreen)
+```
+
+cor != 0=\> Có mối quan hệ tuyến tính giữa Touchscreen và giá.
 
 ### Battery Capacity
 
@@ -609,12 +606,14 @@ head(new_data)
 ```{r}
 #
 repeated_hold_out = vector(length = 0)
-
+rmse_training_rhd = vector(length = 0)
+rmse_test_rhd = vector(length=0)
+suppressWarnings({
 for (i in 1:100) {
   # tạo tập train và test data theo tỉ lệ 8 train 2 test
   rows <- nrow(new_data)
   f <- 0.5
-  upper_bound <- floor(f * rows)
+  upper_bound <- floor(f * rows) #lấy phần nguyên
   permuted_data <- new_data[sample(rows), ]
   
   train_data <- permuted_data[1:upper_bound, ]
@@ -660,7 +659,7 @@ for (i in 1:100) {
   repeated_hold_out <- c(repeated_hold_out, unname(t.test(delta, conf.level =   0.95)[["estimate"]]))
   
 }
-
+})
 ```
 
 Trung bình khoảng tin cậy model cho tất cả hãng:
@@ -731,7 +730,6 @@ regressionForEachBrand_result<-regressionForEachBrand_result%>%
 print(regressionForEachBrand_result)
 t.test(na.omit(regressionForEachBrand_result$error),conf.level = 0.95)
 ```
-
 
 ## Xây dựng mô hình k-NN:
 
