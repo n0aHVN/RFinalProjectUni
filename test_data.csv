@@ -1,0 +1,51 @@
+,Name,Brand,Model,Battery capacity (mAh),Screen size (inches),Touchscreen,Resolution x,Resolution y,Processor,RAM (MB),Internal storage (GB),Rear camera,Front camera,Operating system,Wi-Fi,Bluetooth,GPS,Number of SIMs,3G,4G/ LTE,Price
+1,iPhone 14,Apple,14,3279,6.1,Yes,1170,2532,6,6000,128,12,12,iOS,Yes,Yes,Yes,2,Yes,Yes,755.72
+2,iPhone 14 pro,Apple,14 Pro,3200,6.1,Yes,1284,2778,6,6000,128,48,12,iOS,Yes,Yes,Yes,2,Yes,Yes,1125.35
+3,iPhone 14 promax,Apple,14 Pro Max,4323,6.7,Yes,1290,2796,6,6000,128,48,12,iOS,Yes,Yes,Yes,2,Yes,Yes,1175.76
+4,iPhone 13 promax,Apple,13 Pro Max,4352,6.7,Yes,1284,2778,6,6000,128,12,12,iOS,Yes,Yes,Yes,2,Yes,Yes,1175.8
+5,Samsung galaxy Z Fold4,Samsung,Galaxy Z Fold 4,4400,7.6,Yes,1768,2208,8,12000,256,50,12,Android,Yes,Yes,Yes,2,Yes,Yes,1595.88
+6,Samsung galaxy Z Flip4,Samsung,Galaxy Z Flip 4,3700,6.7,Yes,1080,2636,8,8000,128,12,12,Android,Yes,Yes,Yes,2,Yes,Yes,881.75
+7,Samsung galaxy A73,Samsung,Galaxy A73,5000,6.7,Yes,1080,2400,8,8000,128,108,5,Android,Yes,Yes,Yes,2,Yes,Yes,491.07
+8,Samsung galaxy A53,Samsung,Galaxy A53,5000,6.5,Yes,1080,2400,8,8000,256,64,12,Android,Yes,Yes,Yes,2,Yes,Yes,449.07
+9,Huawei P30,Huawei,P30,2659,6.1,Yes,1080,2340,8,8000,128,40,32,Android,Yes,Yes,Yes,2,Yes,Yes,289.44
+10,Huawei P40,Huawei,P40,3800,6.1,Yes,1080,2340,6,8000,128,50,32,Android,Yes,Yes,Yes,2,Yes,Yes,377.65
+11,Huawei P40 Pro,Huawei,P40 Pro,4200,6.58,Yes,1200,2640,8,8000,128,50,32,Android,Yes,Yes,Yes,2,Yes,Yes,245.33
+12,Huawei Mate 20X,Huawei,Mate 20X,5000,7.2,Yes,1080,2244,6,8000,128,40,24,Android,Yes,Yes,Yes,2,Yes,Yes,289.44
+13,Oppo Reno 8,Oppo,Reno 8,4500,6.4,Yes,1080,2400,8,8000,128,50,32,Android,Yes,Yes,Yes,2,Yes,Yes,323.04
+14,Oppo Reno 8 Z,Oppo,Reno 8 Z,4500,6.43,Yes,1080,2400,8,8000,256,64,16,Android,Yes,Yes,Yes,2,Yes,Yes,377.65
+15,Oppo Reno 7 Lite,Oppo,Reno 7 Lite,4500,6.43,Yes,1080,2400,8,8000,128,64,16,Android,Yes,Yes,Yes,2,Yes,Yes,270.95
+16,Oppo AK16,Oppo,AK16,4230,6.52,Yes,730,1600,2,8000,32,13,5,Android,Yes,Yes,Yes,2,Yes,Yes,121.4
+17,Vivo Y16,Vivo,Y16,5000,6.51,Yes,720,1600,3,4000,32,13,5,Android,Yes,Yes,Yes,2,Yes,Yes,165.93
+18,Vivo T1,Vivo,T1,5000,6.58,Yes,1080,2408,4,8000,128,50,16,Android,Yes,Yes,Yes,2,Yes,Yes,310.86
+19,Vivo V25e,Vivo,V25e,4500,6.44,Yes,1080,2404,8,8000,128,64,32,Android,Yes,Yes,Yes,2,Yes,Yes,318.84
+20,Vivo V25 Pro,Vivo,V25 Pro,4830,6.56,Yes,1080,2376,8,12000,128,64,32,Android,Yes,Yes,Yes,2,Yes,Yes,480.99
+21,Xiaomi Mi 11 Lite,Xiaomi,Mi 11 Lite,4250,6.55,Yes,1080,1400,4,8000,64,64,16,Android,Yes,Yes,Yes,2,Yes,Yes,293.64
+22,Xiaomi Mi 11 Pro,Xiaomi,Mi 11 Pro,5000,6.81,Yes,1440,3200,8,12000,128,50,20,Android,Yes,Yes,Yes,2,Yes,Yes,649.02
+23,Xiaomi 11T,Xiaomi,11T,5000,6.67,Yes,1080,2400,8,8000,128,108,16,Android,Yes,Yes,Yes,2,Yes,Yes,293.64
+24,Xiaomi 11T Pro,Xiaomi,11T Pro,5000,6.91,Yes,1440,3200,8,12000,128,50,20,Android,Yes,Yes,Yes,2,Yes,Yes,377.65
+25,Nokia G21,Nokia,G21,5050,6.5,Yes,720,1600,3,6000,64,50,8,Android,Yes,Yes,Yes,2,Yes,Yes,152.28
+26,Nokia G11,Nokia,G11,5050,6.5,Yes,720,1600,3,4000,32,13,8,Android,Yes,Yes,Yes,2,Yes,Yes,114.1
+27,Nokia C31,Nokia,C31,5050,6.75,Yes,720,1600,3,4000,32,13,5,Android,Yes,Yes,Yes,2,Yes,Yes,99.26
+28,Nokia C21,Nokia,C21,3000,6.52,Yes,720,1600,2,3000,32,8,5,Android,Yes,Yes,Yes,2,Yes,Yes,80.17
+29,Nokia C30,Nokia,C30,6000,6.82,Yes,720,1600,2,3000,32,13,5,Android,Yes,Yes,Yes,2,Yes,Yes,76.78
+30,Google Pixel 7 Pro,Google,Pixel 7 Pro,5000,6.7,Yes,1440,3120,8,12000,128,50,10.8,Android,Yes,Yes,Yes,2,Yes,Yes,954.4
+31,Google Pixel 7 ,Google,Pixel 7 ,4355,6.3,Yes,1080,2400,8,8000,128,50,10.8,Android,Yes,Yes,Yes,2,Yes,Yes,746.55
+32,Google Pixel 6a,Google,Pixel 6a,4410,6.1,Yes,1080,2400,6,6000,128,12.2,8,Android,Yes,Yes,Yes,2,Yes,Yes,407.21
+33,Google Pixel 6,Google,Pixel 6,4614,6.4,Yes,1080,2400,8,8000,128,50,8,Android,Yes,Yes,Yes,2,Yes,Yes,521.31
+34,Google Pixel 6 Pro,Google,Pixel 6 Pro,5003,6.7,Yes,1440,3120,12,12000,128,50,11.1,Android,Yes,Yes,Yes,2,Yes,Yes,572.64
+35,One Plus 11,OnePlus,11,5000,6.7,Yes,1440,3216,8,8000,128,50,16,Android,Yes,Yes,Yes,2,Yes,Yes,975.61
+36,One Plus 10 Pro,OnePlus,10 Pro,5000,6.7,Yes,1440,3216,8,12000,128,48,32,Android,Yes,Yes,Yes,2,Yes,Yes,708.38
+37,One Plus 10T,OnePlus,10T,4800,6.7,Yes,1080,2412,8,8000,128,50,16,Android,Yes,Yes,Yes,2,Yes,Yes,635.84
+38,One Plus 9 Pro,OnePlus,9 Pro,4500,6.7,Yes,1440,3216,8,12000,128,48,16,Android,Yes,Yes,Yes,2,Yes,Yes,400.85
+39,One Plus 9 ,OnePlus,9,4500,6.55,Yes,1080,2400,8,12000,128,48,16,Android,Yes,Yes,Yes,2,Yes,Yes,389.82
+40,Asus Zenfone 9,Asus,Zenfone 9,4300,5.9,Yes,1080,2400,6,8000,128,50,12,Android,Yes,Yes,Yes,2,Yes,Yes,691.41
+41,Asus Zenfone 8,Asus,Zenfone 8,4000,5.9,Yes,1080,2400,6,8000,128,64,12,Android,Yes,Yes,Yes,2,Yes,Yes,636.27
+42,Asus ROG Phone 6 Pro,Asus,ROG Phone 6 Pro,6000,6.78,Yes,1080,2448,8,18000,512,50,12,Android,Yes,Yes,Yes,2,Yes,Yes,975.61
+43,Asus ROG Phone 6 ,Asus,ROG Phone 6 ,6000,6.78,Yes,1080,2448,8,16000,128,50,12,Android,Yes,Yes,Yes,2,Yes,Yes,848.36
+44,Asus ROG Phone 5,Asus,ROG Phone 5,6000,6.78,Yes,1080,2448,8,16000,128,64,24,Android,Yes,Yes,Yes,2,Yes,Yes,721.1
+45,Asus ROG Phone 5S,Asus,ROG Phone 5S,6000,6.78,Yes,1080,2448,8,16000,128,64,24,Android,Yes,Yes,Yes,2,Yes,Yes,750.37
+46,Realme 10 Pro+,Realme,10 Pro+,5000,6.7,Yes,1080,2412,8,12000,128,108,16,Android,Yes,Yes,Yes,2,Yes,Yes,283.78
+47,Realme 10 Pro,Realme,10 Pro,5000,6.72,Yes,1080,2400,8,12000,128,108,16,Android,Yes,Yes,Yes,2,Yes,Yes,211.66
+48,Realme 10,Realme,10,5000,6.4,Yes,1080,2400,4,8000,64,50,16,Android,Yes,Yes,Yes,2,Yes,Yes,139.98
+49,Realme 9,Realme,9,5000,6.4,Yes,1080,2400,6,8000,128,108,16,Android,Yes,Yes,Yes,2,Yes,Yes,194.7
+50,Realme C35,Realme,C35,5000,6.6,Yes,1080,2408,4,6000,64,50,8,Android,Yes,Yes,Yes,2,Yes,Yes,160.76

@@ -1,21 +1,17 @@
 ---
+title: "Proposal"
 author: "NguyenTriDung_NguyenKhoaQuangThang_LeMinhDang"
 date: "2022-10-29"
 output: html_document
 ---
 
-```{=html}
-<h1 style="text-align:center">
-<b>Proposal nhóm 2</b>
-</h1>
-```
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(knitr)
 ```
 
-# **Danh sách thành viên:**
+Danh sách thành viên:
 
 ```{r,echo=FALSE}
 DSThanhVien <-data.frame("STT" = c(9,10,30),
@@ -33,15 +29,10 @@ kable(DSThanhVien)
 
 Nhận thấy điều đó, nhóm 2 nhận thức được rằng việc người mua hàng lựa chọn cấu hình và giá cả khi mua điện thoại luôn được người tiêu dùng đặt lên hàng đầu. Do vậy, để hiểu rõ hơn về sự ảnh hưởng của những chức năng, cấu hình điện thoại tới giá cả, nhóm 2 chọn đề tài là: "Phân tích mô hình dự đoán giá điện thoại qua cấu hình máy".
 
-Và trong đề tài này, dataset được nhóm 2 thống nhất sử dụng có tên là **Mobile Phone Specifications and Prices** được tải xuống từ Kaggle và tác giả của dataset là **PRATIK** **GARAI.** Theo tác giả, dataset được lấy từ website Gadgets360 - là một trang báo của Ấn Độ được cập nhật các thông tin trên toàn thế giới, dữ liệu từ trang này được scrapped và cleaned bằng cách dùng [code ở đây](https://github.com/PratikGarai/Web-Scrapers/blob/master/BeautifulSoup/Ndtv_Scraper.py) và preprocessed [ở đây](https://github.com/PratikGarai/Mobile-Phone-Dataset-Analysis/blob/master/Additional/ndtv_analysis.ipynb)
+Và trong đề tài này, dataset được nhóm 2 thống nhất sử dụng có tên là **Mobile Phone Specifications and Prices** được tải xuống từ Kaggle và tác giả của dataset là **PRATIK** **GARAI.** Theo tác giả, dataset được lấy từ website Gadgets360, được scrapped và cleaned bằng cách dùng [code ở đây](https://github.com/PratikGarai/Web-Scrapers/blob/master/BeautifulSoup/Ndtv_Scraper.py) và preprocessed [ở đây](https://github.com/PratikGarai/Mobile-Phone-Dataset-Analysis/blob/master/Additional/ndtv_analysis.ipynb)
 
-![](https://c.ndtvimg.com/gws/739/assets/4.svg?1597035633){width="515"}
+Câu hỏi của nhóm đặt ra là:
 
-```{=html}
-<h1 style="font-size: 20px">
-<b>Câu hỏi của nhóm đặt ra:</b> Dự đoán giá của điện thoại thông qua thông số máy và tìm hiểu biến nào ảnh hưởng tới giá nhiều nhất.
-<h1>
-```
 # Phần 2: Dữ liệu:
 
 ```{r}
@@ -242,15 +233,35 @@ ggplot(data = data) +
 ```
 
 ```{r}
-ggplot(data = data, mapping = aes(x = Rear.camera, y = Front.camera)) +
-  geom_point(mapping = aes(color = Operating.system), size = 1.5) +
-  xlim(0,70) + ylim(0,35) +
-  xlab('Rear Camera (mp)') +
-  ylab('Front Camera (mp)') +
-  ggtitle(label = 'Scatterplots') + 
-  scale_color_brewer(palette = "Set1") +
-  theme_light() +
-  scale_color_discrete(name = "OS")
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
 ```
 
 ```{r}
@@ -307,6 +318,8 @@ Xây dựng mô hình dự đoán biến kết quả là giá của điện tho�
 ### **4) Kế hoạch thực hiện và phân công công việc:**
 
 Kế hoạch thực hiện:
+<<<<<<< Updated upstream
+=======
 
 Hiện tại, tiếp tục nghiên cứu, tìm hiểu về mô hình regression.
 
@@ -317,7 +330,8 @@ Làm Presentation và report trước 11/12/2022
 Phân công công việc:
 
 | STT | MSSV     | Họ và Tên               | Phân công                            |
-|-------|------------|---------------------|---------------------------------|
+|-----|----------|-------------------------|--------------------------------------|
 | 09  | 20133029 | Nguyễn Trí Dũng         | Kiểm kê giả thuyết + Mô hình dự đoán |
 | 30  | 20133090 | Nguyễn Khoa Quang Thắng | EDA + Mô hình dự đoán                |
 | 10  | 20133034 | Lê Minh Đăng            | EDA                                  |
+>>>>>>> Stashed changes
