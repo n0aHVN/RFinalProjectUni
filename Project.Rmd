@@ -1,5 +1,4 @@
 ---
-=---
 title: ''
 output: html_document
 date: "2022-10-25"
@@ -599,116 +598,84 @@ new_data<-new_data[order(new_data$Brand),]
 head(brand_numOfPhone,10)
 ```
 
-Tách ra làm tập dữ liệu để Training và Test:
-
-```{r}
-inTrain<-createDataPartition(new_data$Price,p=0.8,list=FALSE)
-train_data<-new_data[inTrain,]
-test_data<-new_data[-inTrain,]
-train_data
-test_data
-```
-
 Cùng xem lại new_data sau khi chuyển đổi:
 
 ```{r}
 head(new_data)
 ```
 
-**Mô hình dự đoán giá điện thoại cho tất cả điện thoại**
+**Mô hình hồi qui tuyến tính cho tất cả hãng:**
 
 ```{r}
-regressionForAll_data<-train_data
-regressionForAll_data$Brand<-as.numeric(as.factor(regressionForAll_data$Brand))
-regressionForAll<-lm(regressionForAll_data$Price ~
-     regressionForAll_data$Brand+
-     regressionForAll_data$Battery+
-     regressionForAll_data$Screensize+
-     regressionForAll_data$Touchscreen+
-     regressionForAll_data$Resolution.x+
-     regressionForAll_data$Resolution.y+
-     regressionForAll_data$NumOfProcessor+
-     regressionForAll_data$Ram+
-     regressionForAll_data$InternalStorage+
-     regressionForAll_data$RearCamera+
-     regressionForAll_data$FrontCamera+
-     regressionForAll_data$OS+
-     regressionForAll_data$Wifi+
-     regressionForAll_data$Bluetooth+
-     regressionForAll_data$GPS+
-     regressionForAll_data$NumOfSims+
-     regressionForAll_data$`3G`+
-     regressionForAll_data$`4G`
-   ,data = regressionForAll_data)
-summary(regressionForAll)
+#
+repeated_hold_out = vector(length = 0)
 
-```
+for (i in 1:100) {
+  # tạo tập train và test data theo tỉ lệ 8 train 2 test
+  rows <- nrow(new_data)
+  f <- 0.5
+  upper_bound <- floor(f * rows)
+  permuted_data <- new_data[sample(rows), ]
+  
+  train_data <- permuted_data[1:upper_bound, ]
+  test_data <- permuted_data[(upper_bound+1):rows, ]
+  
+  
+  #Model dự đoán cho tất cả điện thoại
+  
+  train_data$Brand <- as.numeric(as.factor(train_data$Brand))
 
-Dự đoán trên tập train:
+  train_data_lm <- lm(train_data$Price ~
+     train_data$Brand+
+     train_data$Battery+
+     train_data$Screensize+
+     train_data$Touchscreen+
+     train_data$Resolution.x+
+     train_data$Resolution.y+
+     train_data$NumOfProcessor+
+     train_data$Ram+
+     train_data$InternalStorage+
+     train_data$RearCamera+
+     train_data$FrontCamera+
+     train_data$OS+
+     train_data$Wifi+
+     train_data$Bluetooth+
+     train_data$GPS+
+     train_data$NumOfSims+
+     train_data$`3G`+
+     train_data$`4G`
+   ,data = train_data)
+  
+  #print(summary(train_data_lm)$r.squared)
+  
+  test_data$Brand <- as.numeric(as.factor(test_data$Brand))
 
-```{r}
-regressionForAll_data<-train_data
-regressionForAll_data$Brand<-as.numeric(as.factor(regressionForAll_data$Brand))
-
-regressionForAll_result<-regressionForAll_data%>%mutate(PredictedPrice = predict(regressionForAll,regressionForAll_data))
-regressionForAll_result<-regressionForAll_result%>%mutate(error= PredictedPrice-Price,sq.error = error^2)
-regressionForAll_result<-regressionForAll_result[c('Name','Price','PredictedPrice','error','sq.error')]
-regressionForAll_result
-t.test(regressionForAll_result$error,conf.level = 0.95)
-```
-
-Dự đoán trên tập test:
-
-```{r}
-regressionForAll_data<-test_data
-regressionForAll_data$Brand<-as.numeric(as.factor(regressionForAll_data$Brand))
-PredictedPrice = predict(regressionForAll,regressionForAll_data)
-
-regressionForAll_result<-regressionForAll_data%>%mutate(PredictedPrice = predict(regressionForAll,regressionForAll_data))
-regressionForAll_result<-regressionForAll_result%>%mutate(error= PredictedPrice-Price,sq.error = error^2)
-regressionForAll_result<-regressionForAll_result[c('Name','Price','PredictedPrice','error','sq.error')]
-regressionForAll_result
-t.test(regressionForAll_result$error,conf.level = 0.95)
-```
-
-**Mô hình tuyến tính cho mỗi hãng:**
-
-```{r,echo=TRUE,include=FALSE}
-#include=FALSE
-for (x in brand_numOfPhone$brand)
-{
-  print(x)
-  temp_data<-train_data %>% filter(train_data$Brand == x)
-  regression<-lm(temp_data$Price ~
-     temp_data$Battery+
-     temp_data$Screensize+
-     temp_data$Touchscreen+
-     temp_data$Resolution.x+
-     temp_data$Resolution.y+
-     temp_data$NumOfProcessor+
-     temp_data$Ram+
-     temp_data$InternalStorage+
-     temp_data$RearCamera+
-     temp_data$FrontCamera+
-     temp_data$OS+
-     temp_data$Wifi+
-     temp_data$Bluetooth+
-     temp_data$GPS+
-     temp_data$NumOfSims+
-     temp_data$`3G`+
-     temp_data$`4G`
-   ,data = temp_data)
-    print(summary(regression))
-    print(cat('\n\n\n\n'))
+  #vector giá dự đoán 
+  predicted.dat <- predict(train_data_lm, newdata = test_data)
+  
+  #vector error
+  delta <- predicted.dat - test_data$Price
+  
+  #khoảng tin cậy cho mức tin cậy 95% trung bình delta
+  repeated_hold_out <- c(repeated_hold_out, unname(t.test(delta, conf.level =   0.95)[["estimate"]]))
+  
 }
+
 ```
 
-Dự đoán giá trên tập train:
+Trung bình khoảng tin cậy model cho tất cả hãng:
 
 ```{r}
-fn_RegressionForEachBrand<-function(test_data,train_data){
+repeated_hold_out_mean = sum(repeated_hold_out) / 100
+repeated_hold_out_mean
+```
+
+**Mô hình hồi qui tuyến tính theo mỗi hãng:**
+
+```{r}
+fn_RegressionForEachBrand<-function(train_data,test_data){
   #Sắp xếp lại theo Brand
-  test_data<-test_data[order(test_data$Brand),]
+  test_data <- test_data[order(test_data$Brand),]
   #result lưu trữ giá dự đoán
   result<-data.frame(Name = test_data$Name,
                      Price = test_data$Price,
@@ -728,8 +695,8 @@ fn_RegressionForEachBrand<-function(test_data,train_data){
       next
     }
     #Tạo model cho Brand ở hiện tại
-    regression_data<-train_data[train_data$Brand == test_data[i,]$Brand,]
-    regression<-lm(regression_data$Price ~
+    regression_data <- train_data[train_data$Brand == test_data[i,]$Brand,]
+    regression <- lm(regression_data$Price ~
      regression_data$Battery+
      regression_data$Screensize+
      regression_data$Touchscreen+
@@ -748,12 +715,14 @@ fn_RegressionForEachBrand<-function(test_data,train_data){
      regression_data$`3G`+
      regression_data$`4G`
    ,data = regression_data)
+    
     regression_data<-test_data[i,]
     #Đoán giá ở dòng hiện tại
     result[i,]$PredictedPrice <- predict(regression,regression_data)
   } 
   return(result)
 }
+
 suppressWarnings({
   regressionForEachBrand_result<-fn_RegressionForEachBrand(train_data,train_data)
 })
@@ -763,26 +732,6 @@ print(regressionForEachBrand_result)
 t.test(na.omit(regressionForEachBrand_result$error),conf.level = 0.95)
 ```
 
-Thử lại với tập test:
-
-```{r}
-suppressWarnings({
-  regressionForEachBrand_result<-fn_RegressionForEachBrand(test_data,train_data)
-})
-regressionForEachBrand_result<-regressionForEachBrand_result%>%
-  mutate(error= PredictedPrice-Price,sq.error = error^2)
-print(regressionForEachBrand_result)
-t.test(na.omit(regressionForEachBrand_result$error),conf.level = 0.95)
-```
-
-```{r}
-#regression_train<-regression_train%>%
-#                    mutate(error= PredictedPrice-Price,sq.error = error^2)
-#regression_train[c('Name','Price','PredictedPrice','error','sq.error')]
-#mse<-mean(regression_train$sq.error)
-#rmse<-sqrt(mse)
-#rmse
-```
 
 ## Xây dựng mô hình k-NN:
 
