@@ -92,6 +92,178 @@ any(is.na(data[1:nrow(data),]))
 
 # Phần 2: Mô hình hoá dữ liệu:
 
+```{r, echo=FALSE}
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Brand, fill = Brand), width = 0.5)+
+  labs( 
+    x = "Hãng Điện Thoại",
+    y = "Số Lương")
+```
+
+```{r, echo=FALSE}
+ggplot(data = data, mapping = aes(x = X, y = Battery)) +
+  geom_point() +
+  labs( 
+    x = "",
+    y = "Dung Lượng PIN(mAh)")
+```
+
+```{r, echo=FALSE}
+ggplot(data = data, mapping = aes(x = X, y = Screensize)) +
+  geom_point() +
+  labs( 
+    x = "",
+    y = "Kích Cỡ Màn Hình(inches)")
+```
+
+```{r, echo=FALSE}
+data %>% 
+  select(Touchscreen) %>% 
+  group_by(Touchscreen) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=Touchscreen)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) + 
+  theme_void()
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Touchscreen), width = 1, color = "blue") +
+  labs( 
+    x = "Resolution X",
+    y = "Số Lương")
+```
+
+```{r, echo=FALSE}
+data %>% 
+  select(Resolution.x) %>% 
+  group_by(Resolution.x) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=Resolution.x)) +
+  geom_bar(stat="identity", width=1, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Resolution.x), width = 100, color = "blue") +
+  labs( 
+    x = "Resolution X",
+    y = "Số Lương")
+```
+
+```{r, echo=FALSE}
+data %>% 
+  select(Resolution.y) %>% 
+  group_by(Resolution.y) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=Resolution.y)) +
+  geom_bar(stat="identity", width=1, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Resolution.y), width = 100, color = "blue") +
+  labs( 
+    x = "Resolution Y",
+    y = "Số Lương")
+```
+
+```{r, echo=FALSE}
+data %>% 
+  select(NumOfProcessor) %>% 
+  group_by(NumOfProcessor) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=NumOfProcessor)) +
+  geom_bar(stat="identity", width=1, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = NumOfProcessor), width = 0.5, color = "blue") +
+  labs( 
+    x = "NumOfProcessor",
+    y = "Số Lương")
+```
+
+```{r, echo=FALSE}
+data %>% 
+  select(Ram) %>% 
+  group_by(Ram) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=Ram)) +
+  geom_bar(stat="identity", width=1000, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = Ram), width = 1000, color = "blue") +
+  labs( 
+    x = "Ram",
+    y = "Số Lương")
+```
+
+```{r, echo=FALSE}
+data %>% 
+  select(InternalStorage) %>% 
+  group_by(InternalStorage) %>% 
+  count() %>% 
+  ggplot(aes(x="", y=n, fill=InternalStorage)) +
+  geom_bar(stat="identity", width=64, color = "yellow") +
+  coord_polar("y", start=0) + 
+  theme_void()
+
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = InternalStorage), width = 16, color = "blue") +
+  labs( 
+    x = "Internal storage(GB)",
+    y = "Số Lương")
+```
+
+```{r, echo=FALSE}
+data1 <- data
+data1$InternalStorage<- as.character(data1$InternalStorage)
+
+
+ggplot() +
+  geom_bar(data = data1,mapping = aes(x = InternalStorage, fill =                    InternalStorage)) +
+  coord_polar() +
+  xlab('Internal Storage (GB)') +
+  ylab('Range') +
+  ggtitle(label = 'Statistic of Internal Storage') +
+
+  scale_fill_discrete(name = "Category IS")
+```
+
+```{r, echo=FALSE}
+data2 <- data.frame(
+  group = c("Yes","No"),
+  value = c((sum(data$Wifi == "Yes")-sum(data$Wifi == "No"))/sum(data$Wifi == "Yes")*100,sum(data$Wifi == "No")/sum(data$Wifi == "Yes")*100)
+)
+
+ggplot(data = data2, aes(x = "", y = value, fill = group)) +
+  geom_col(color = "white") +
+  geom_text(aes(label = (round(value, digits = 2))),
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  ggtitle(label = 'Wifi Statistic') +
+  scale_fill_discrete(name = "Category")
+```
+
+```{r, echo=FALSE}
+data3 <- data.frame(
+  group = c("Yes","No"),
+  value = c((sum(data$`4G` == "Yes")-sum(data$`4G` == "No"))/sum(data$`4G` == "Yes")*100,sum(data$`4G` == "No")/sum(data$`4G` == "Yes")*100)
+)
+
+ggplot(data = data3, aes(x = "", y = value, fill = group)) +
+  geom_col(color = "white") +
+  geom_text(aes(label = (round(value, digits = 2))),
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") +
+  theme_void() +
+  labs(title = '4G/LITE Statistic', caption = "Many device don't support 4G/LITE") +
+  scale_fill_discrete(name = "Category")
+```
+
 # Phần 3: Kiểm định giả thuyết:
 
 Do dataset của nhóm có 3 loại biến là binary, continuous và nominal, nên phần kiểm định giả thuyết nhóm sẽ áp dụng phương pháp kiểm kê cho phù hợp với từng trường hợp.
@@ -409,7 +581,7 @@ head(new_data,10)
 
 Tạo ra bảng brand_numOfPhone để lưu số lượng điện thoại cho từng hãng:
 
-```{r}
+```{r, echo = FALSE}
 brand<-unique(data[order(data$Brand),]$Brand)
 numOfPhone<-c()
 
@@ -433,6 +605,7 @@ inTrain<-createDataPartition(new_data$Price,p=0.8,list=FALSE)
 train_data<-new_data[inTrain,]
 test_data<-new_data[-inTrain,]
 train_data
+test_data
 ```
 
 Tạo ra bảng OStoNum để quy đổi OS ra số
@@ -449,7 +622,7 @@ Cùng xem lại new_data sau khi chuyển đổi:
 head(new_data)
 ```
 
-```{r}
+```{r, include=FALSE, echo=FALSE}
 #test_data<-read.csv('./test_data.csv')
 #colnames(test_data)[5]<-'Battery'
 #colnames(test_data)[6]<-'Screensize'
@@ -505,45 +678,57 @@ head(new_data)
 **Mô hình dự đoán giá điện thoại cho tất cả điện thoại**
 
 ```{r}
-regression_data<-train_data
-regression_data$Brand<-as.numeric(as.factor(regression_data$Brand))
-regression<-lm(regression_data$Price ~
-     regression_data$Brand+
-     regression_data$Battery+
-     regression_data$Screensize+
-     regression_data$Touchscreen+
-     regression_data$Resolution.x+
-     regression_data$Resolution.y+
-     regression_data$NumOfProcessor+
-     regression_data$Ram+
-     regression_data$InternalStorage+
-     regression_data$RearCamera+
-     regression_data$FrontCamera+
-     regression_data$OS+
-     regression_data$Wifi+
-     regression_data$Bluetooth+
-     regression_data$GPS+
-     regression_data$NumOfSims+
-     regression_data$`3G`+
-     regression_data$`4G`
-   ,data = regression_data)
-summary(regression)
+regressionForAll_data<-train_data
+regressionForAll_data$Brand<-as.numeric(as.factor(regressionForAll_data$Brand))
+regressionForAll<-lm(regressionForAll_data$Price ~
+     regressionForAll_data$Brand+
+     regressionForAll_data$Battery+
+     regressionForAll_data$Screensize+
+     regressionForAll_data$Touchscreen+
+     regressionForAll_data$Resolution.x+
+     regressionForAll_data$Resolution.y+
+     regressionForAll_data$NumOfProcessor+
+     regressionForAll_data$Ram+
+     regressionForAll_data$InternalStorage+
+     regressionForAll_data$RearCamera+
+     regressionForAll_data$FrontCamera+
+     regressionForAll_data$OS+
+     regressionForAll_data$Wifi+
+     regressionForAll_data$Bluetooth+
+     regressionForAll_data$GPS+
+     regressionForAll_data$NumOfSims+
+     regressionForAll_data$`3G`+
+     regressionForAll_data$`4G`
+   ,data = regressionForAll_data)
+summary(regressionForAll)
 
 ```
 
-```{r}
-regression_data<-test_data
-regression_data$Brand<-as.numeric(as.factor(regression_data$Brand))
-PredictedPrice = predict(regression,regression_data)
-oneForAll<-regression_data%>%mutate(PredictedPrice = predict(regression,regression_data))
-oneForAll<-oneForAll%>%mutate(error= PredictedPrice-Price,sq.error = error^2)
-oneForAll<-oneForAll[c('Name','Price','PredictedPrice','error','sq.error')]
-oneForAll
-mse<-mean(oneForAll$sq.error)
-rmse<-sqrt(mse)
-rmse
+Dự đoán trên tập train:
 
-t.test(oneForAll$error,conf.level = 0.95)
+```{r}
+regressionForAll_data<-train_data
+regressionForAll_data$Brand<-as.numeric(as.factor(regressionForAll_data$Brand))
+
+regressionForAll_result<-regressionForAll_data%>%mutate(PredictedPrice = predict(regressionForAll,regressionForAll_data))
+regressionForAll_result<-regressionForAll_result%>%mutate(error= PredictedPrice-Price,sq.error = error^2)
+regressionForAll_result<-regressionForAll_result[c('Name','Price','PredictedPrice','error','sq.error')]
+regressionForAll_result
+t.test(regressionForAll_result$error,conf.level = 0.95)
+```
+
+Dự đoán trên tập test:
+
+```{r}
+regressionForAll_data<-test_data
+regressionForAll_data$Brand<-as.numeric(as.factor(regressionForAll_data$Brand))
+PredictedPrice = predict(regressionForAll,regressionForAll_data)
+
+regressionForAll_result<-regressionForAll_data%>%mutate(PredictedPrice = predict(regressionForAll,regressionForAll_data))
+regressionForAll_result<-regressionForAll_result%>%mutate(error= PredictedPrice-Price,sq.error = error^2)
+regressionForAll_result<-regressionForAll_result[c('Name','Price','PredictedPrice','error','sq.error')]
+regressionForAll_result
+t.test(regressionForAll_result$error,conf.level = 0.95)
 ```
 
 **Mô hình tuyến tính cho mỗi hãng:**
@@ -578,15 +763,10 @@ for (x in brand_numOfPhone$brand)
 }
 ```
 
-Dự đoán giá laptop:
+Dự đoán giá trên tập train:
 
 ```{r}
-```
-
-Dự đoán giá dựa trên 25 model:
-
-```{r}
-fn_RegressionBasedOnBrand<-function(test_data,new_data){
+fn_RegressionForEachBrand<-function(test_data,train_data){
   #Sắp xếp lại theo Brand
   test_data<-test_data[order(test_data$Brand),]
   #result lưu trữ giá dự đoán
@@ -597,18 +777,18 @@ fn_RegressionBasedOnBrand<-function(test_data,new_data){
   for (i in 1:nrow(test_data))
   {
     #Kiểm tra điều kiện
-    if (!test_data[i,]$Brand %in% new_data$Brand)
+    if (!test_data[i,]$Brand %in% train_data$Brand)
     {
       print(paste("Brand",test_data[i,]$Brand, "không tồn tại trong database!"))
       next
     }
-    else if (!test_data[i,]$OS %in% new_data$OS)
+    else if (!test_data[i,]$OS %in% train_data$OS)
     {
-      print(paste("OS không tồn tại trong database!"))
+      print(paste("OS",test_data[i,]$OS ,"không tồn tại trong database!"))
       next
     }
     #Tạo model cho Brand ở hiện tại
-    regression_data<-new_data[new_data$Brand == test_data[i,]$Brand,]
+    regression_data<-train_data[train_data$Brand == test_data[i,]$Brand,]
     regression<-lm(regression_data$Price ~
      regression_data$Battery+
      regression_data$Screensize+
@@ -635,15 +815,24 @@ fn_RegressionBasedOnBrand<-function(test_data,new_data){
   return(result)
 }
 suppressWarnings({
-  modelForeachBrand<-fn_RegressionBasedOnBrand(test_data,train_data)
+  regressionForEachBrand_result<-fn_RegressionForEachBrand(train_data,train_data)
 })
-modelForeachBrand<-modelForeachBrand%>%
+regressionForEachBrand_result<-regressionForEachBrand_result%>%
   mutate(error= PredictedPrice-Price,sq.error = error^2)
-print(modelForeachBrand)
-mse_ForeachBrand<-mean(na.omit(modelForeachBrand$sq.error))
-rmse_ForeachBrand<-sqrt(mse_ForeachBrand)
-rmse_ForeachBrand
-t.test(na.omit(modelForeachBrand$error),conf.level = 0.95)
+print(regressionForEachBrand_result)
+t.test(na.omit(regressionForEachBrand_result$error),conf.level = 0.95)
+```
+
+Thử lại với tập test:
+
+```{r}
+suppressWarnings({
+  regressionForEachBrand_result<-fn_RegressionForEachBrand(test_data,train_data)
+})
+regressionForEachBrand_result<-regressionForEachBrand_result%>%
+  mutate(error= PredictedPrice-Price,sq.error = error^2)
+print(regressionForEachBrand_result)
+t.test(na.omit(regressionForEachBrand_result$error),conf.level = 0.95)
 ```
 
 ```{r}
@@ -655,9 +844,9 @@ t.test(na.omit(modelForeachBrand$error),conf.level = 0.95)
 #rmse
 ```
 
-k-NN:
+## Xây dựng mô hình k-NN:
 
-One-hot encoding:
+**One-hot encoding:**
 
 ```{r}
 kNN_train_data<-train_data
@@ -706,6 +895,8 @@ kNN_test_data
 
 ```
 
+Xây dựng
+
 ```{r}
 
 set.seed(1)
@@ -720,10 +911,15 @@ tuneGrid<-expand.grid(k=seq(1,59, by=2))
 
 kNNModel<-train(Price~.,data = kNN_train_data, method = 'knn', 
                 preProcess = c('center','scale'), 
-                trControl = trainControl(method ='repeatedcv',number=10,repeats = 5),tuneGrid = tuneGrid)
+                trControl = trainControl(method ='repeatedcv',number=10,repeats = 5),
+                tuneGrid = tuneGrid)
 
-summary(kNNModel)
+qqnorm(resid(kNNModel))
+qqline(resid(kNNModel))
+plot(fitted(kNNModel),resid(kNNModel),ylim=c(-50,50))
 ```
+
+Dự đoán giá trên tập test:
 
 ```{r}
 #kNNModel$results
@@ -732,15 +928,15 @@ kNN_result<-data.frame(Price = kNN_test_data$Price,
 #knn_rmse<-sqrt(mean(kNN_result$Price-kNN_result$PredictedPrice)^2)
 kNN_result<-kNN_result%>%
   mutate(error= PredictedPrice-Price,sq.error = error^2)
-knn_rmse<-sqrt(mean(kNN_result$sq.error))
-kNN_result
-knn_rmse
-min(abs(kNN_result$error))
-max(abs(kNN_result$error))
 t.test(kNN_result$error,conf.level = 0.95)
+```
 
-qqnorm(resid(kNNModel))
-qqline(resid(kNNModel))
-plot(fitted(kNNModel),resid(kNNModel),ylim=c(-50,50))
+Thử lại với tập trainning:
 
+```{r}
+kNN_result<-data.frame(Price = kNN_train_data$Price,
+                       PredictedPrice = predict(kNNModel,kNN_train_data))
+kNN_result<-kNN_result%>%
+  mutate(error= PredictedPrice-Price,sq.error = error^2)
+t.test(kNN_result$error,conf.level = 0.95)
 ```
