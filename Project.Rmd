@@ -1,4 +1,5 @@
 ---
+=---
 title: ''
 output: html_document
 date: "2022-10-25"
@@ -608,71 +609,10 @@ train_data
 test_data
 ```
 
-Tạo ra bảng OStoNum để quy đổi OS ra số
-
-```{r}
-OStoNum<-data.frame(OS = unique(data[order(data$OS),]$OS))
-OStoNum$Num<-c(1:nrow(OStoNum))
-OStoNum
-```
-
 Cùng xem lại new_data sau khi chuyển đổi:
 
 ```{r}
 head(new_data)
-```
-
-```{r, include=FALSE, echo=FALSE}
-#test_data<-read.csv('./test_data.csv')
-#colnames(test_data)[5]<-'Battery'
-#colnames(test_data)[6]<-'Screensize'
-#colnames(test_data)[10]<-'NumOfProcessor'
-##colnames(test_data)[11]<-'Ram'
-#colnames(test_data)[12]<-'InternalStorage'
-#colnames(test_data)[13]<-'RearCamera'
-#colnames(test_data)[14]<-'FrontCamera'
-#colnames(test_data)[15]<-'OS'
-#colnames(test_data)[16]<-'Wifi'
-#colnames(test_data)[19]<-'NumOfSims'
-#colnames(test_data)[20]<-'3G'
-#colnames(test_data)[21]<-'4G'
-#test_data[test_data$Touchscreen == "Yes",]$Touchscreen<-as.integer(1)
-#test_data[test_data$Touchscreen == "No",]$Touchscreen<-as.integer(0)
-#test_data$Touchscreen<-as.numeric(test_data$Touchscreen)
-
-#for (i in 1:nrow(test_data))
-#{
-#    for (j in 1:nrow(OStoNum))
-#    {
-#      if (test_data[i,]$OS==OStoNum[j,]$OS)
-#      {
-#        test_data[i,]$OS = OStoNum[j,]$Num
-#      }
-#    }
-#}
-#regression_data$Brand<-as.numeric(as.factor(regression_data$Brand))
-#test_data$OS<-as.numeric(test_data$OS)
-#test_data[test_data$Bluetooth == "Yes",]['Bluetooth']<-as.integer(1)
-#test_data[test_data$Bluetooth == "No",]['Bluetooth']<-as.integer(0)
-#test_data$Bluetooth<-as.numeric(test_data$Bluetooth)
-
-#test_data[test_data$Wifi == "Yes",]['Wifi']<-as.integer(1)
-#test_data[test_data$Wifi == "No",]['Wifi']<-as.integer(0)
-#test_data$Wifi<-as.numeric(test_data$Wifi)
-
-#test_data[test_data$GPS == "Yes",]['GPS']<-as.integer(1)
-#test_data[test_data$GPS == "No",]['GPS']<-as.integer(0)
-#test_data$GPS<-as.numeric(test_data$GPS)
-
-#test_data[test_data$`3G` == "Yes",]['3G']<-as.integer(1)
-#test_data[test_data$`3G` == "No",]['3G']<-as.integer(0)
-#test_data$`3G`<-as.numeric(test_data$`3G`)
-
-#test_data[test_data$`4G` == "Yes",]['4G']<-as.integer(1)
-#test_data[test_data$`4G` == "No",]['4G']<-as.integer(0)
-#test_data$`4G`<-as.numeric(test_data$`4G`)
-
-#head(test_data,10)
 ```
 
 **Mô hình dự đoán giá điện thoại cho tất cả điện thoại**
